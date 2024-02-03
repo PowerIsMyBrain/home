@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wow Panel Administracyjny</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <style>
+    body {
+      background-color: #f5f5f5;
+    }
+    .navbar {
+      background-color: #171a21 !important;
+    }
+    .navbar-brand {
+      color: #ffffff !important;
+    }
+    .sidebar {
+      background-color: #1a1c21;
+      color: #ffffff;
+      height: 100vh;
+      transition: width 0.3s; /* Dodano płynne przejście szerokości */
+    }
+    .sidebar a {
+      color: #ffffff;
+    }
+    .sidebar a:hover {
+      color: #cccccc;
+    }
+    .main-content {
+      padding-top: 20px;
+    }
+    .settings-card {
+      background-color: #1e2125;
+      border: 1px solid #343a40;
+      color: #ffffff;
+    }
+    .settings-card .card-header {
+      background-color: #343a40;
+      color: #ffffff;
+    }
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%; /* Okrągły kształt avatara */
+      background-color: #6c757d;
+    }
+    /* Dodane style dla tabeli */
+    .form-group label {
+      font-weight: bold;
+    }
+    .form-group select {
+      width: 100%;
+    }
+    .przyklejone-divy {
+            position: fixed; /* Określa, żeby elementy były przyklejone do okna przeglądarki */
+            top: 0; /* Określa odległość od góry */
+            right: 0; /* Określa, że elementy mają być przylepione do prawej strony */
+            width: 40%;
+            padding-top: 25px;
+        }
+        .przyklejddoł-divy {
+            position: fixed; /* Określa, żeby elementy były przyklejone do okna przeglądarki */
+            bottom: 0; /* Określa odległość od góry */
+            left: 0; /* Określa, że elementy mają być przylepione do prawej strony */
+            padding: 5px;
+            font-size: 12px;
+        }
+
+        .pagination {
+            padding: auto;
+        }
+        .mainContainer {
+            padding: 25px;
+        }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark navbar-expand-lg">
+    <div>
+        <ul class="nav nav-tabs navbar-dark">
+            <li class="nav-item navbar-dark">
+
+                <a class="nav-link active navbar-dark" aria-current="page" href="#">Strona Główna</a>
+            </li>
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true">Opcje</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item"href="admin_dashboard.php">Strona Główna</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="brands.php">Zarządzaj Markami</a></li>
+                    <li><a class="dropdown-item" href="users.php">Użytkownicy</a></li>
+                    <li><a class="dropdown-item" href="permissions.php">Uprawnienia</a></li>
+                    <!-- Dodaj inne strony panelu administracyjnego zgodnie z potrzebami -->
+                    <li><a class="dropdown-item" href="blog.php">Blog</a></li>
+                    <li><a class="dropdown-item" href="media_gallery.php">Galeria Mediów</a></li>
+                    <li><a class="dropdown-item" href="market_trends.php">Trendy Rynkowe</a></li>
+                    <li><a class="dropdown-item" href="notifications.php">Powiadomienia</a></li>
+                    <li><a class="dropdown-item" href="error_reports.php">Raporty Błędów</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Ustawienia</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="przyklejone-divy">
+            <p maria-disabled="true">Zalogowany jako Mikael | 
+                <span>
+                    <button type="button" class="btn btn-secondary btn-sm">Wyloguj się</button>
+                </span>
+            </p>
+        </div>
+        </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+      <div class="position-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">
+              <i class="bi bi-house"></i> Strona główna
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="bi bi-gear"></i> Ustawienia
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="bi bi-file-text"></i> Zarządzanie zawartością
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="bi bi-person"></i> Profil użytkownika
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+        <div class="mainContainer">
+            <!-- Navbar -->
+            
+                <!-- Cała karta -->
+                <div class="container" style="padding: 10px;">
+                  <div class="row">
+                    <div class="col-9">
+                      <!-- <h2 class="card-title"><strong>DMD DOMY</strong></h2> -->
+                    </div>
+                    <div class="col-4" style="max-height: 21rem;">
+                      <!-- Lewa kolumna -->
+                        <img src="https://heretyk.smallhost.pl/img/codding1.png" class="card-img-top" alt="...">
+                      <div style="text-align: right;">
+                        <i class="bi bi-pencil-square"></i>
+                      </div>
+                      <p class="card-text">Marka DMD DOMY jest liderem nie tylko na rolalnym rynku ale także w całym sektorze budowlanym w Polsce.</p>
+                    </div>
+                    <div class="col-6">
+                        <!-- Prawa kolumna -->
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Zarządzanie Użytkownikami</label>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Zarządzanie Markami</label>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled" disabled>
+                        <label class="form-check-label" for="flexSwitchCheckDisabled">Zarządzanie systemem</label>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled" checked disabled>
+                        <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Opcje Dev</label>
+                      </div>
+                        <ul>
+                          <li>
+                            <button type="button" class="btn btn-primary btn-sm">Potwierdź</button>
+                          </li>
+                          <li>
+                            <button type="button" class="btn btn-secondary btn-sm">Anuluj Akcję</button>
+                          </li>
+                          <li>
+                            <button type="button" class="btn btn-success btn-sm">Potwierdź Success</button>
+                          </li>
+                          <li>
+                            <button type="button" class="btn btn-danger btn-sm">Usuń Kasuj</button>
+                          </li>
+                          <li>
+                            <button type="button" class="btn btn-warning btn-sm">Ostrzeżenie</button>
+                          </li>
+                          <li>
+                            <button type="button" class="btn btn-info btn-sm">Info</button>
+                          </li>
+                          <li>
+                            <button type="button" class="btn btn-light btn-sm">Akcja podrzędna</button>
+                          </li>
+                          <li>
+                            <button type="button" class="btn btn-dark btn-sm">Zapisz zmiany</button>
+                          </li>
+                          <li>
+                            <a type="button" class="btn btn-link" href="admin_dashboard.php">Anuluj</a>
+                          </li>
+    
+    
+                          <!-- inne użyteczne -->
+                          <li>
+                            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                          </li>
+                          <li>
+                            <label class="btn btn-outline-primary" for="btn-check-outlined">Single toggle</label><br>
+                          </li>
+                          <li>
+                            <input type="checkbox" class="btn-check" id="btn-check-2-outlined" checked autocomplete="on">
+                          </li>
+                          <li>
+                          <label class="btn btn-outline-secondary" for="btn-check-2-outlined">Checked</label><br>
+                          </li>
+                          <li>
+                          <input type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="on" checked>
+                          </li>
+                          <li>
+                          <label class="btn btn-outline-success" for="success-outlined">Checked success radio</label>
+                          </li>
+                          <li>
+                          <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off">
+                          </li>
+                          <li>
+                          <label class="btn btn-outline-danger" for="danger-outlined">Danger radio</label>
+                          </li>
+                        </ul>
+                    </div>
+                </div>
+          </div>
+        <!-- Footer -->
+        <div class="przyklejddoł-divy">
+            <p>Copyrights © 2024 DMD DOMY. All Rights Reserved.<p>  
+            <p>Polityka prywatności | Zasady korzystania z witryny | FAQ’s | Pomoc</p>
+        </div>
+    
+        </div>
+    </main>
+  </div>
+</div>
+
+<!-- Przykład avatara użytkownika -->
+<div class="position-fixed bottom-0 start-0 m-3 avatar">
+  <!-- Tutaj możesz dodać ikonę użytkownika lub zdjęcie -->
+</div>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  // Dodaj animację do menu bocznego
+  $(document).ready(function(){
+    $('#sidebar').hover(function(){
+      $(this).addClass('expanded'); // Dodaj klasę 'expanded' po najechaniu
+    }, function(){
+      $(this).removeClass('expanded'); // Usuń klasę 'expanded' po zjechaniu
+    });
+  });
+</script>
+
+</body>
+</html>

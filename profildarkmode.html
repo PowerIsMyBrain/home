@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ControlPanelDmD</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <style>
+    .przyklejone-divy {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 40%;
+      padding-top: 25px;
+    }
+    .przyklejddoł-divy {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      padding: 5px;
+      font-size: 12px;
+    }
+    .pagination {
+      padding: auto;
+    }
+    .mainContainer {
+      padding: 25px;
+    }
+    /* Dodane style dla trybu jasnego i ciemnego */
+    body.light-mode {
+      background-color: #ffffff;
+      color: #000000;
+    }
+    body.dark-mode {
+      background-color: #121212;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body class="light-mode"> <!-- Domyślnie ustawiamy tryb jasny -->
+
+<script>
+  // Funkcja do zmiany trybu
+  function changeMode(mode) {
+    document.body.classList.remove('light-mode', 'dark-mode'); // Usuwamy wszystkie klasy tła
+    document.body.classList.add(mode); // Dodajemy klasę odpowiadającą wybranemu trybowi
+  }
+</script>
+
+<div class="mainContainer">
+  <!-- Navbar -->
+  <div>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Strona Główna</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true">Opcje</a>
+        <ul class="dropdown-menu">
+          <!-- Zawartość menu -->
+        </ul>
+      </li>
+    </ul>
+    <div class="przyklejone-divy">
+      <p maria-disabled="true">Zalogowany jako Mikael | 
+        <span>
+          <button type="button" class="btn btn-secondary btn-sm">Wyloguj się</button>
+        </span>
+      </p>
+    </div>
+  </div>
+  <!-- Cała karta -->
+  <div class="container" style="padding: 10px;">
+    <!-- Zawartość strony -->
+  </div>
+</div>
+
+<!-- Przyciski do zmiany trybu -->
+<div class="przyklejddoł-divy">
+  <button type="button" class="btn btn-light" onclick="changeMode('light-mode')">Tryb Jasny</button>
+  <button type="button" class="btn btn-dark" onclick="changeMode('dark-mode')">Tryb Ciemny</button>
+</div>
+
+</body>
+</html>
