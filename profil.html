@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ControlPanelDmD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <style>
+        .przyklejone-divy {
+            position: fixed; /* Określa, żeby elementy były przyklejone do okna przeglądarki */
+            top: 0; /* Określa odległość od góry */
+            right: 0; /* Określa, że elementy mają być przylepione do prawej strony */
+            width: 40%;
+            padding-top: 25px;
+        }
+        .przyklejddoł-divy {
+            position: fixed; /* Określa, żeby elementy były przyklejone do okna przeglądarki */
+            bottom: 0; /* Określa odległość od góry */
+            left: 0; /* Określa, że elementy mają być przylepione do prawej strony */
+            padding: 5px;
+            font-size: 12px;
+        }
+
+        .pagination {
+            padding: auto;
+        }
+        .mainContainer {
+            padding: 25px;
+        }
+        </style>
+</head>
+<body>
+<script>
+    const mapa = true;
+</script>
+    <div class="mainContainer">
+        <!-- Navbar -->
+        <div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Strona Główna</a>
+            </li>
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true">Opcje</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item"href="admin_dashboard.php">Strona Główna</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="brands.php">Zarządzaj Markami</a></li>
+                    <li><a class="dropdown-item" href="users.php">Użytkownicy</a></li>
+                    <li><a class="dropdown-item" href="permissions.php">Uprawnienia</a></li>
+                    <!-- Dodaj inne strony panelu administracyjnego zgodnie z potrzebami -->
+                    <li><a class="dropdown-item" href="blog.php">Blog</a></li>
+                    <li><a class="dropdown-item" href="media_gallery.php">Galeria Mediów</a></li>
+                    <li><a class="dropdown-item" href="market_trends.php">Trendy Rynkowe</a></li>
+                    <li><a class="dropdown-item" href="notifications.php">Powiadomienia</a></li>
+                    <li><a class="dropdown-item" href="error_reports.php">Raporty Błędów</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Ustawienia</a></li>
+                </ul>
+            </li>
+            
+
+        </ul>
+        <div class="przyklejone-divy">
+            <p maria-disabled="true">Zalogowany jako Mikael | 
+                <span>
+                    <button type="button" class="btn btn-secondary btn-sm">Wyloguj się</button>
+                </span>
+            </p>
+        </div>
+        </div>
+            <!-- Right site -->
+
+    
+                <!-- Profil -->
+                <div style="padding: 10px;">
+                  <div class="card" style="width: 100%;">
+                    <img src="https://heretyk.smallhost.pl/img/codding1.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">DMD DOMY</h5>
+                      <div style="text-align: right;">
+                        <i class="bi bi-pencil-square"></i>
+                      </div>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled" disabled>
+                        <label class="form-check-label" for="flexSwitchCheckDisabled">Disabled switch checkbox input</label>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled" checked disabled>
+                        <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Disabled checked switch checkbox input</label>
+                      </div>
+                        <button type="button" class="btn btn-primary">Primary</button>
+                        <button type="button" class="btn btn-secondary">Secondary</button>
+                        <button type="button" class="btn btn-success">Success</button>
+                        <button type="button" class="btn btn-danger">Danger</button>
+                        <button type="button" class="btn btn-warning">Warning</button>
+                        <button type="button" class="btn btn-info">Info</button>
+                        <button type="button" class="btn btn-light">Light</button>
+                        <button type="button" class="btn btn-dark">Dark</button>
+                        <a type="button" class="btn btn-link" href="admin_dashboard.php">Anuluj</a>
+                    </div>
+                  </div>
+                </div>  
+                </div>
+                <!-- Conntent -->
+                <div class="przyklejddoł-divy">
+                    <p>Copyrights © 2024 DMD DOMY. All Rights Reserved.<p>  
+                    <p>Polityka prywatności | Zasady korzystania z witryny | FAQ’s | Pomoc</p>
+                </div>
+
+    </div>
+</body>
+</html>
