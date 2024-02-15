@@ -63,6 +63,69 @@
       background-color: #121212; /* Kolor tła w trybie ciemnym */
       color: #fff; /* Kolor tekstu w trybie ciemnym */
     }
+    .klej {
+      display: flex;
+    }
+    .table-creator {
+      width: 100%;
+      padding: 20px;
+    }
+
+    #a1-header {
+      width: 5%;
+      border-bottom: #fff solid 1px;
+      padding: auto;
+    }
+    #a2-header {
+      min-width: 20%;
+      border-bottom: #fff solid 1px;
+      padding: auto;
+    }
+    #a3-header {
+      min-width: 30%;
+      border-bottom: #fff solid 1px;
+    }
+    #a4-header {
+      min-width: 40%;
+      border-bottom: #fff solid 1px;
+    }
+    #a5-header {
+      min-width: 50%;
+      border-bottom: #fff solid 1px;
+    }
+    #a6-header {
+      min-width: 60%;
+      border-bottom: #fff solid 1px;
+    }
+
+    #a1 {
+      min-width: 5%;
+      border-bottom: #fff solid 1px;
+      padding: auto;
+    }    
+    #a2 {
+      min-width: 20%;
+      border-bottom: #fff solid 1px;
+      padding: auto;
+    }   
+    #a3 {
+      min-width: 30%;
+      border-bottom: #fff solid 1px;
+    }    
+    #a4 {
+      min-width: 40%;
+      border-bottom: #fff solid 1px;
+    }    
+    #a5 {
+      min-width: 50%;
+      border-bottom: #fff solid 1px;
+    }    
+    #a6{
+      min-width: 60%;
+      border-bottom: #fff solid 1px;
+    }
+
+    
   </style>
 </head>
 <body>
@@ -137,14 +200,61 @@
           </div>
           <!-- Użytkownicy -->
           <div class="col-2 col-sm-7">
-            <table class="table">
-              <thead>
+            <div class="table-creator">
+              <div calss="row">
+                <div class="klej">
+                  <div id="a1-header">
+                    #
+                  </div>
+                  <div id="a2-header">
+                    Nazwa użytkownika
+                  </div>
+                  <div id="a2-header">
+                    Aktywność
+                  </div>
+                  <div id="a2-header">
+                    Login
+                  </div>
+                  <div id="a2-header">
+                    <i class="bi bi-person-gear"></i> Akcja
+                  </div>
+                </div>
+              </div>  
+              
+
+              <div calss="row">
+                <div class="klej">
+                  <div id="a1">
+                    1
+                  </div>
+                  <div id="a2">
+                    Mark
+                  </div>
+                  <div id="a2">
+                    Otto
+                  </div>
+                  <div id="a2">
+                    @mdo
+                  </div>
+                  <div id="a2">
+                    <a href="profil.html"><i class="bi bi-info-square" style="color: rgb(0, 196, 49) !important;"></i></a>
+                    <a href="#"><i class="bi bi-pencil-square" style="color: rgb(0, 180, 204) !important;"></i></a>
+                    <a href="#"><i class="bi bi-person-video2" style="color: rgb(255, 145, 0) !important;"></i></a>
+                    <a href="#"><i class="bi bi-x-square-fill" style="color: rgb(255, 0, 0) !important;"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- <table class="table" style="color:white;">
+              <thead >
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Nazwa użytkownika</th>
                   <th scope="col">Aktywność</th>
                   <th scope="col">Login</th>
-                  <th scope="col"><i class="bi bi-person-gear"></i> Akcja</th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
@@ -160,6 +270,7 @@
                     <a href="#"><i class="bi bi-x-square-fill" style="color: rgb(255, 0, 0) !important;"></i></a>
                   </td>
                 </tr>
+                
                 <tr>
                   <th scope="row">2</th>
                   <td><stong>Jacob</stong></td>
@@ -184,10 +295,10 @@
                   </td>
                 </tr>
               </tbody>
-            </table>
+            </table> -->
             <div class="pagination">
               <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
+                <ul class="pagination justify-content-center dark-mode">
                   <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
                   </li>
