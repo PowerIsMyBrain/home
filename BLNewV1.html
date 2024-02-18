@@ -333,7 +333,70 @@
                                 <li><a class="dropdown-item" href="users.php">Użytkownicy</a></li>
                                 <li><a class="dropdown-item" href="permissions.php">Uprawnienia</a></li>
                                 <!-- Dodaj inne strony panelu administracyjnego zgodnie z potrzebami -->
-                                <li><a class="dropdown-item" href="formularz_bloga.php">Blog</a></li>
+                                <li>
+                                    <nav>
+                                        <ul>
+                                            <!-- Pozostałe elementy menu -->
+                                            <li><a href="#">Inna strona</a></li>
+                                            <!-- Przycisk "Blog" -->
+                                            <li id="pokazFormularz"><button>Blog</button></li>
+                                        
+                                    </nav>
+                                    <a class="dropdown-item" href="formularz_bloga.php">Blog</a><!DOCTYPE html>
+                                    <html lang="en">
+                                    <head>
+                                        <meta charset="UTF-8">
+                                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                        <title>Strona główna</title>
+                                        <!-- Tutaj możesz dodać linki do stylów CSS, jeśli są potrzebne -->
+                                    </head>
+                                    <body>
+                                    
+                                    <nav>
+                                        <ul>
+                                            <!-- Pozostałe elementy menu -->
+                                            <li><a href="#">Inna strona</a></li>
+                                            <!-- Przycisk "Blog" -->
+                                            <li><button id="pokazFormularz">Blog</button></li>
+                                        </ul>
+                                    </nav>
+                                    <!-- Kontener, w którym będzie umieszczany link do formularza -->
+                                    <div id="formularzContainer" style="display: none;">
+                                        <form action="formularz_bloga.php" method="post">
+                                            <label for="tytul">Tytuł bloga:</label><br>
+                                            <input type="text" id="tytul" name="tytul" required><br><br>
+                                    
+                                            <label for="tresc">Treść bloga:</label><br>
+                                            <textarea id="tresc" name="tresc" rows="4" cols="50" required></textarea><br><br>
+                                    
+                                            <label for="zdjecie">Dodaj zdjęcie:</label><br>
+                                            <input type="file" id="zdjecie" name="zdjecie"><br><br>
+                                    
+                                            <label for="komentarz">Modyfikuj komentarz:</label><br>
+                                            <textarea id="komentarz" name="komentarz" rows="4" cols="50"></textarea><br><br>
+                                    
+                                            <input type="submit" value="Zapisz zmiany">
+                                        </form>
+                                    </div>
+                                    
+                                    <script>
+                                        // Skrypt JavaScript
+                                        var przyciskBlog = document.getElementById("pokazFormularz");
+                                        var kontenerFormularza = document.getElementById("formularzContainer");
+                                    
+                                        przyciskBlog.addEventListener("click", function() {
+                                            if (kontenerFormularza.style.display === "none") {
+                                                kontenerFormularza.style.display = "block";
+                                            } else {
+                                                kontenerFormularza.style.display = "none";
+                                            }
+                                        });
+                                    </script>
+                                    
+                                    </body>
+                                    </html>
+                                    </ul>
+                                </li>
                                 <li><a class="dropdown-item" href="media_gallery.php">Galeria Mediów</a></li>
                                 <li><a class="dropdown-item" href="market_trends.php">Trendy Rynkowe</a></li>
                                 <li><a class="dropdown-item" href="notifications.php">Powiadomienia</a></li>
