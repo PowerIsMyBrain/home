@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gateway</title>
+</head>
+<body>
+    <h1>Witaj w bramce!</h1>
+    
+    <!-- Przykład użycia znaczników Flask w HTML -->
+    <p>Witaj, {{ user }}!</p>
+    
+    {% if logged_in %}
+        <p>Jesteś zalogowany!</p>
+    {% else %}
+        <p>Nie jesteś zalogowany.</p>
+    {% endif %}
+
+    <!-- Przykład użycia pętli w znacznikach Flask -->
+    <ul>
+    {% for item in items %}
+        <li>{{ item }}</li>
+    {% endfor %}
+    </ul>
+
+    <!-- Przykład użycia warunkowych instrukcji -->
+    {% if weather == 'sunny' %}
+        <p>Dzisiaj jest słonecznie!</p>
+    {% elif weather == 'rainy' %}
+        <p>Dzisiaj pada deszcz.</p>
+    {% else %}
+        <p>Dzisiaj joddasz hajs: {{ weather }}</p>
+    {% endif %}
+</body>
+</html>
