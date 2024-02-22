@@ -133,9 +133,9 @@
                 <div class="p-2">
                     <ul class="nav nav-tabs">
                         <li class="nav-item ">
-                            <a class="nav-link active dark-mode" aria-current="page" href="#">Użytkownicy</a>
+                            <a class="nav-link active dark-mode " aria-current="page" href="#">Użytkownicy</a>
                         </li>
-                        <li class="nav-item dropdown ">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle link-light dark-mode" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true">Opcje</a>
                             <ul class="dropdown-menu dark-mode">
                                 <li><a class="dropdown-item" href="#">Strona Główna</a></li>
@@ -148,6 +148,9 @@
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="#">Ustawienia</a></li>
                             </ul>
+                        </li>
+                        <li style="margin-left: 15px;">
+                            <a href="#"><i class="bi bi-plus-square-fill" style="font-size: 18pt; color: rgb(23, 209, 23) !important;"></i></a>
                         </li>
                     </ul>
                     <div class="table-creator">
@@ -170,12 +173,14 @@
                                     Data publikacji
                                 </div>
                                 <div  class="column-ender">
-                                    <i class="bi bi-person-gear"></i> Akcja
+                                    <i class="bi bi-person-gear"></i> Akcja 
                                 </div>
                             </div>
                         </div>
 
-                        {% for post_id, post_data in posts.items() %}
+                        
+                        {% for post_data in posts %}
+                            {% set post_id  = post_data['id'] %}
                         <!-- linia contentu tabeli ciemna-->
                         <div class="row">
                             <div class="klej {% if loop.index is even %}formatuj-light-line{% else %}formatuj-dark-line{% endif %}" >
@@ -283,7 +288,7 @@
                                                     <!-- Tutaj będą dynamicznie dodawane elementy listy -->
                                                 </div>
                                                 <div class="formatuj-right formatuj-margin">
-                                                    <button type="button" class="btn btn-warning btn-sm" onclick="addListItem('{{post_id}}')">Dodaj pole</button>
+                                                    <button type="button" class="btn btn-warning btn-sm" onclick="addListItem('{{post_data[]}}')">Dodaj pole</button>
                                                 </div>
                                             </div>
                                             <script>
@@ -295,17 +300,62 @@
     
                                             <!-- Tags -->
                                             <div class="mb-3">
-                                                <label for="tags" class="form-label">Tags</label>
-                                                
-                                                <input type="text" value="{{post_data['tags']}}" class="form-control bg-dark formatuj-maly-font" style="color:#6d6d6d; border:#6a6a6a solid 1px;" id="tags" name="tags" required>
+                                                <label for="tags{{post_id}}" class="form-label">Tags</label>
+                                                <div id="list-tag-container{{post_id}}" class="no-border">
+                                                    <!-- Tutaj będą dynamicznie dodawane elementy listy -->
+                                                </div>
+                                                <div class="formatuj-right formatuj-margin">
+                                                    <button 
+                                                            type="button" 
+                                                            class="btn btn-warning btn-sm" 
+                                                            onclick="addListItem(
+                                                                                '{{post_id}}', 
+                                                                                'dynamicTagField',
+                                                                                'input',
+                                                                                'form-control bg-dark formatuj-maly-font',
+                                                                                'additionalTagList',
+                                                                                '4',
+                                                                                '#6d6d6d',
+                                                                                '#6a6a6a solid 1px',
+                                                                                true,
+                                                                                'no-border formatuj-margin form-control bg-dark formatuj-right',
+                                                                                'list-tag-container',
+                                                                                'btn btn-outline-danger formatuj-maly-font formatuj-margin',
+                                                                                'Usuń tag'
+                                                                                )">
+                                                        Dodaj Tag
+                                                    </button>
+                                                </div>
+                                                <!-- <input type="text" value="{{post_data['tags']}}" class="form-control bg-dark formatuj-maly-font" style="color:#6d6d6d; border:#6a6a6a solid 1px;" id="tags" name="tags" required> -->
                                             </div>
-    
+                                            <script>
+                                                var additionalTagList = "{{post_data['tags']}}";
+                                                var idAddionalTagList = '{{post_id}}';
+                                                addListFields(
+                                                                additionalTagList, 
+                                                                idAddionalTagList, 
+                                                                ", ", 
+                                                                "dynamicTagsField",
+                                                                'input', 
+                                                                "form-control bg-dark formatuj-maly-font",
+                                                                'tags', 
+                                                                '4',
+                                                                "#6d6d6d",
+                                                                "#6a6a6a solid 1px",
+                                                                true,
+                                                                "no-border formatuj-margin form-control bg-dark formatuj-right",
+                                                                "list-tag-container",
+                                                                "btn btn-outline-danger formatuj-maly-font formatuj-margin",
+                                                                "Usuń Tag"
+                                                                );
+                                            </script>
+
                                             <!-- Category -->
                                             <div class="mb-3">
                                                 <label for="category" class="form-label">Kategoria</label>
                                                 <input type="text" value="{{post_data['category']}}" class="form-control bg-dark formatuj-maly-font" style="color:#6d6d6d; border:#6a6a6a solid 1px;" id="tags" name="tags" required>
                                             </div>
-                                            <button type="submit" class="btn btn-success btn-sm" style="max-height: 30px; font-size: 12px;" onclick="joinListFields('{{post_id}}', '#splx#')">Zapisz artykuł</button>
+                                            <button type="submit" class="btn btn-success btn-sm" style="max-height: 30px; font-size: 12px;" onclick="joinListFields('{{post_id}}', ', ', 'dynamicTagsField'); joinListFields('{{post_id}}', '#splx ', 'dynamicField')">Zapisz artykuł</button>
                                         </form>
                                     </div>
                                 </div>
@@ -338,22 +388,18 @@
                         </div>
                         <!-- collapse end -->
                     {% endfor %}
+                    <!-- Paginacja -->
+                    <span class="formatuj-maly-logout">{{ pagination.info }}</span>
                     <div class="pagination formatuj-margin-top">
-                        <nav aria-label="Page navigation example">
+                        
+                        <nav aria-label="Page navigation example">                            
                             <ul class="pagination justify-content-center dark-mode">
-                                <li class="page-item disabled">
-                                    <a class="page-link bg-dark" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
+                                <li class="page-item">{{ pagination.prev }}</li>
+                                <li class="page-item">{{ pagination.links }}</li>
+                                <li class="page-item">{{ pagination.next }}</li>
                             </ul>
-                        </nav>      
+                        </nav>
                     </div>
-                </div>
             </div>
         </main>
     </div>

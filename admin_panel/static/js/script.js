@@ -1,93 +1,126 @@
-// Pobierz dane z bazy danych jako jeden string, gdzie pola są oddzielone przez #splx#
-// var daneZBazyDanych = "Alucobond: Lustrzane Odbicie Natury: Dom Lustrzany, o powierzchni 400 m² na dwóch kondygnacjach, opiera się na dwóch bryłach, które płynnie łączą się poziomo. Elewacja dolnej części, niemal w całości pokryta alucobondem - aluminiową płytą kompozytową, nadaje budynkowi charakter lustra. Marcin Tomaszewski, opowiadając o swoim projekcie, podkreśla zalety alucobondu, który imituje lustro, zachowując jednocześnie trwałość i wytrzymałość.#splx#Zanurzenie w Naturze: Alucobond sprawia, że dom staje się niemal niewidoczny, odbijając otaczający las i zlewając się z przyrodą. Biała bryła piętra zdaje się unosić w powietrzu, dzięki czemu granice między budynkiem a naturą stają się nieostrzejsze. To nie tylko dom, ale także interaktywna przestrzeń, gdzie światło i odbicia nadają mu dynamiczną formę.#splx#Trwałość i Niski Wymiar Utrzymania: Alucobond, jako materiał niezwykle twardy i trwały, nie wymaga regularnych odnawiania ani odświeżania. Prosta pielęgnacja, polegająca na umyciu powierzchni czystą wodą, sprawia, że budynek zachowuje swoją estetykę na długie lata.";
-
-// Rozdziel dane na tablicę używając separatora #splx#
-// var pola_listy = daneZBazyDanych.split("#splx#");
-
-// Funkcja do dodawania pól do formularza
-function addListFields(daneZBazyDanych, id, sep) {
-    var pola_listy = daneZBazyDanych.split(sep); // przeniesione z poza ciała funkcji
+function addListFields(
+    daneZBazyDanych,
+    id,
+    sep,
+    elementName = "dynamicField",
+    spec = "textarea",
+    classes = "form-control bg-dark formatuj-maly-font",
+    idName = "additionalList",
+    rowsAmount = "4",
+    styleColor = "#6d6d6d",
+    styleBorders = "#6a6a6a solid 1px",
+    req = true,
+    itemStyles = "no-border formatuj-margin form-control bg-dark formatuj-right",
+    extraID = "list-container",
+    removeButtonClass = "btn btn-outline-danger formatuj-maly-font formatuj-margin",
+    removeButtonTextContent = "Usuń pole"
+) {
+    var pola_listy = daneZBazyDanych.split(sep);
     // Iteruj przez pola_listy
-    pola_listy.forEach(function(value) {
-        // Tworzymy nowy element textarea
-        var inputElement = document.createElement("textarea");
-        inputElement.name = "dynamicField"+id; // Nazwa pola, którą możesz obsłużyć po stronie serwera
-        inputElement.value = value; // Ustaw wartość z pola_listy
+    pola_listy.forEach(function (value) {
+        // Tworzymy nowy element input lub textarea, zależnie od wartości spec
+        var inputElement;
+        if (spec === 'textarea') {
+            inputElement = document.createElement('textarea');
+            inputElement.rows = rowsAmount;
+        } else {
+            inputElement = document.createElement('input');
+            inputElement.type = 'text';
+        }
 
-        // Ustaw style dla textarea
-        inputElement.className = "form-control bg-dark formatuj-maly-font";
-        inputElement.style.color = "#6d6d6d";
-        inputElement.style.border = "#6a6a6a solid 1px";
-        inputElement.id = "additionalList" + id;
-        inputElement.rows = "4";
-        inputElement.required = true;
+        inputElement.name = elementName + id;
+        inputElement.value = value;
+        inputElement.className = classes;
+        inputElement.style.color = styleColor;
+        inputElement.style.border = styleBorders;
+        inputElement.id = idName + id;
+        inputElement.required = req;
 
-        // Tworzymy nowy element div, który zawiera textarea i przycisk usuwania
+        // Tworzymy nowy element div, który zawiera input/textarea i przycisk usuwania
         var listItem = document.createElement("div");
-        listItem.className = "no-border formatuj-margin form-control bg-dark formatuj-right";
+        listItem.className = itemStyles;
         listItem.appendChild(inputElement);
 
         // Przycisk usuwania
         var removeButton = document.createElement("button");
-        removeButton.textContent = "Usuń pole";
+        removeButton.textContent = removeButtonTextContent;
         removeButton.type = "button";
-        removeButton.className = "btn btn-outline-danger formatuj-maly-font formatuj-margin"
-        inputElement.style.marginTop = "10px";
-        removeButton.onclick = function() {
-        listItem.remove();
+        removeButton.className = removeButtonClass;
+        removeButton.onclick = function () {
+            listItem.remove();
         };
 
         listItem.appendChild(removeButton);
 
         // Dodajemy nowy element listy do kontenera
-        // document.getElementById("list-container" + id).appendChild(listItem);
-        var listContainer = document.getElementById("list-container" + id);
-
+        var listContainer = document.getElementById(extraID + id);
         if (listContainer) {
             listContainer.appendChild(listItem);
         } else {
-            console.error("Element o identyfikatorze 'list-container" + id + "' nie istnieje.");
+            console.error(`Element o identyfikatorze ${extraID + id} nie istnieje.`);
         }
     });
 }
 
-// Funkcja do dodawania nowego pola do listy
-function addListItem(id) {
-    // Tworzymy nowy element textarea
-    var textareaElement = document.createElement("textarea");
-    textareaElement.name = "dynamicField"+id; // Nazwa pola, którą możesz obsłużyć po stronie serwera
 
-    // Ustaw style dla textarea
-    textareaElement.className = "form-control bg-dark formatuj-maly-font";
-    textareaElement.style.color = "#6d6d6d";
-    textareaElement.style.border = "#6a6a6a solid 1px";
-    textareaElement.id = "additionalList";
-    textareaElement.rows = "4";
-    textareaElement.required = true;
 
-    // Tworzymy nowy element div, który zawiera textarea i przycisk usuwania
+function addListItem(
+    id, 
+    elementName="dynamicField",
+    spec="textarea", 
+    classes="form-control bg-dark formatuj-maly-font",
+    idName="additionalList",
+    rowsAmount="4",
+    styleColor="#6d6d6d",
+    styleBorders="#6a6a6a solid 1px",
+    req=true,
+    itemStyles="no-border formatuj-margin form-control bg-dark formatuj-right",
+    extraID="list-container",
+    removeButtonClass="btn btn-outline-danger formatuj-maly-font formatuj-margin",
+    removeButtonTextContent="Usuń pole"
+) {
+    var inputElement;
+
+    if (spec === 'textarea') {
+        // Tworzymy nowy element textarea
+        inputElement = document.createElement('textarea');
+        inputElement.rows = rowsAmount;
+    } else {
+        // Tworzymy nowy element input
+        inputElement = document.createElement('input');
+        inputElement.type = 'text';
+    }
+
+    inputElement.name = elementName + id; // Nazwa pola, którą możesz obsłużyć po stronie serwera
+    inputElement.className = classes;
+    inputElement.style.color = styleColor;
+    inputElement.style.border = styleBorders;
+    inputElement.id = idName;
+    inputElement.required = req;
+
     var listItem = document.createElement("div");
-    listItem.className = "no-border formatuj-margin form-control bg-dark formatuj-right";
-    listItem.appendChild(textareaElement);
+    listItem.className = itemStyles;
+    listItem.appendChild(inputElement);
 
-    // Przycisk usuwania
     var removeButton = document.createElement("button");
-    removeButton.textContent = "Usuń pole";
+    removeButton.textContent = removeButtonTextContent;
     removeButton.type = "button";
-    removeButton.className = "btn btn-outline-danger formatuj-maly-font formatuj-margin";
+    removeButton.className = removeButtonClass;
+
     removeButton.onclick = function() {
         listItem.remove();
     };
 
     listItem.appendChild(removeButton);
 
-    // Dodajemy nowy element listy do kontenera
-    document.getElementById("list-container"+id).appendChild(listItem);
+    document.getElementById(extraID + id).appendChild(listItem);
 }
 
+
+
 // Funkcja do złączania zawartości pól listy w jeden string
-function joinListFields(id, sep) {
-    var inputElements = document.getElementsByName("dynamicField"+id);
+function joinListFields(id, sep, elementName="dynamicField",) {
+    var inputElements = document.getElementsByName(elementName+id);
     var values = [];
 
     // Iteruj przez wszystkie elementy input i dodaj ich wartości do tablicy
@@ -101,6 +134,7 @@ function joinListFields(id, sep) {
     // Wyświetl wynik w konsoli (możesz zmienić to na zapis do bazy danych)
     console.log(resultString);
 }
+
 
 // Przykład wywołania funkcji joinListFields
 // Możesz umieścić to w odpowiednim miejscu w kodzie, np. po wciśnięciu przycisku "Zapisz"

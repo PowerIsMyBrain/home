@@ -24,8 +24,8 @@
 
 /* General css */
 body {
-    background-color: #12181E; /* Nowy kolor tła */
-    color: #5C646C; /* Nowy kolor tekstu */
+    background-color: #1e2124; /* Nowy kolor tła */
+    color: #c7c7c7; /* Nowy kolor tekstu */
     cursor: default;
   }
   button {
@@ -382,3 +382,31 @@ body {
     font-size: 28px;
     border-radius: 10px;
   }
+
+  /* Dostosuj kolor tła i kolor tekstu dla paginacji */
+.pagination {
+    background-color: none; /* Kolor tła */
+}
+
+.pagination a, .pagination span {
+    color: grey; /* Kolor tekstu */
+}
+
+/* Dostosuj styl dla aktywnej strony */
+.pagination .page-item.active a {
+    background-color: #2c2f33; /* Kolor tła dla aktywnej strony */
+    border-color: grey; /* Kolor obramowania dla aktywnej strony */
+}
+
+.pagination li {
+    background-color: #2c2f33; /* Kolor tła dla aktywnej strony */
+}
+/* Dostosuj styl dla przycisku "Previous" */
+.pagination .page-item:first-child .page-link {
+    margin-left: 0; /* Usuń odstęp z lewej strony */
+}
+
+/* Dostosuj styl dla przycisku "Next" */
+.pagination .page-item:last-child .page-link {
+    margin-right: 0; /* Usuń odstęp z prawej strony */
+}
