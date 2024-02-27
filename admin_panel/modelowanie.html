@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Sterowania Pracownikami</title>
+    <style>
+        #home, #team {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        #home div, #team div {
+            flex: 1;
+            min-width: 250px;
+            min-height: 250px;
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin-right: 5px;
+            cursor: move;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dostepnyPracownik {
+            margin-bottom: 5px;
+            cursor: move;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 50%;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div id="panelSterowania">
+    <h2>Panel Sterowania Pracownikami</h2>
+
+    <div>
+        <h3>Home</h3>
+        <div id="home" ondrop="upusc('home', event)" ondragover="dopuszczalnePrzesuniecie(event)">Upuść tutaj</div>
+    </div>
+
+    <div>
+        <h3>Team</h3>
+        <div id="team" ondrop="upusc('team', event)" ondragover="dopuszczalnePrzesuniecie(event)">Upuść tutaj</div>
+    </div>
+
+    <div id="dostepniPracownicy" ondrop="upusc('dostepniPracownicy', event)" ondragover="dopuszczalnePrzesuniecie(event)">
+        <h3>Dostępni Pracownicy</h3>
+        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle">Michał</div>
+        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle">Anna</div>
+        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle">Jan</div>
+        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle">Katarzyna</div>
+        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle">Piotr</div>
+        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle">Ewa</div>
+    </div>
+</div>
+
+<script>
+    function przeciagnij(event) {
+        event.dataTransfer.setData("text/plain", event.target.textContent);
+        event.dataTransfer.setData("shape", event.target.getAttribute("data-shape"));
+    }
+
+    function dopuszczalnePrzesuniecie(event) {
+        event.preventDefault();
+    }
+
+    function upusc(area, event) {
+        event.preventDefault();
+        const pracownikImie = event.dataTransfer.getData("text/plain");
+        const pracownikShape = event.dataTransfer.getData("shape");
+
+        const pracownikDiv = document.createElement("div");
+        pracownikDiv.textContent = pracownikImie;
+        pracownikDiv.draggable = true;
+        pracownikDiv.setAttribute("data-shape", pracownikShape);
+        pracownikDiv.addEventListener("dragstart", przeciagnij);
+
+        if (area === 'home') {
+            if (home.childElementCount < 4 && !czyPracownikIstnieje(home, pracownikImie)) {
+                home.appendChild(pracownikDiv);
+                usunPracownikaZListy('dostepniPracownicy', pracownikImie);
+            } else {
+                alert("Można publikować maksymalnie 4 pracowników na stronie głównej. Pracownik przeniesiony do Team.");
+                team.appendChild(pracownikDiv);
+                usunPracownikaZListy('dostepniPracownicy', pracownikImie);
+            }
+        } else if (area === 'team' && !czyPracownikIstnieje(home, pracownikImie) && !czyPracownikIstnieje(team, pracownikImie)) {
+            team.appendChild(pracownikDiv);
+            usunPracownikaZListy('dostepniPracownicy', pracownikImie);
+        } else if (area === 'dostepniPracownicy' && !czyPracownikIstnieje(dostepniPracownicy, pracownikImie)) {
+            document.getElementById('dostepniPracownicy').appendChild(pracownikDiv);
+            usunPracownikaZListy('home', pracownikImie);
+            usunPracownikaZListy('team', pracownikImie);
+        }
+    }
+
+    function czyPracownikIstnieje(sekcja, pracownikImie) {
+        const pracownicy = sekcja.querySelectorAll('div');
+        let istnieje = false;
+        pracownicy.forEach(pracownik => {
+            if (pracownik.textContent === pracownikImie) {
+                istnieje = true;
+            }
+        });
+        return istnieje;
+    }
+
+    function usunPracownikaZListy(sekcja, pracownikImie) {
+        const pracownicy = document.getElementById(sekcja).querySelectorAll('div');
+        pracownicy.forEach(pracownik => {
+            if (pracownik.textContent === pracownikImie) {
+                pracownik.remove();
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Sterowania Pracownikami</title>
+    <style>
+        #home, #team {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        #home div, #team div {
+            flex: 1;
+            min-width: 250px;
+            min-height: 250px;
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin-right: 5px;
+            cursor: move;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dostepnyPracownik {
+            margin-bottom: 5px;
+            cursor: move;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 50%;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div id="panelSterowania">
+    <h2>Panel Sterowania Pracownikami</h2>
+
+    <div>
+        <h3>Home</h3>
+        <div id="home" ondrop="upusc('home', event)" ondragover="dopuszczalnePrzesuniecie(event)">Upuść tutaj</div>
+    </div>
+
+    <div>
+        <h3>Team</h3>
+        <div id="team" ondrop="upusc('team', event)" ondragover="dopuszczalnePrzesuniecie(event)">Upuść tutaj</div>
+    </div>
+
+    <div id="dostepniPracownicy" ondrop="upusc('dostepniPracownicy', event)" ondragover="dopuszczalnePrzesuniecie(event)">
+        <h3>Dostępni Pracownicy</h3>
+        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)">Michał</div>
+        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)">Anna</div>
+        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)">Jan</div>
+        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)">Katarzyna</div>
+        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)">Piotr</div>
+        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)">Ewa</div>
+    </div>
+</div>
+
+<script>
+    function przeciagnij(event) {
+        event.dataTransfer.setData("text/plain", event.target.textContent);
+    }
+
+    function dopuszczalnePrzesuniecie(event) {
+        event.preventDefault();
+    }
+
+    function upusc(area, event) {
+        event.preventDefault();
+        const pracownikImie = event.dataTransfer.getData("text/plain");
+
+        const pracownikDiv = document.createElement("div");
+        pracownikDiv.textContent = pracownikImie;
+        pracownikDiv.draggable = true;
+        pracownikDiv.addEventListener("dragstart", przeciagnij);
+
+        if (area === 'home') {
+            if (home.childElementCount < 4) {
+                home.appendChild(pracownikDiv);
+                // Usunięcie pracownika z listy dostępnych pracowników
+                const dostepnePracownicy = document.querySelectorAll('.dostepnyPracownik');
+                dostepnePracownicy.forEach(pracownik => {
+                    if (pracownik.textContent === pracownikImie) {
+                        pracownik.remove();
+                    }
+                });
+            } else {
+                alert("Można publikować maksymalnie 4 pracowników na stronie głównej. Pracownik przeniesiony do Team.");
+                team.appendChild(pracownikDiv);
+                // Usunięcie pracownika z listy dostępnych pracowników
+                const dostepnePracownicy = document.querySelectorAll('.dostepnyPracownik');
+                dostepnePracownicy.forEach(pracownik => {
+                    if (pracownik.textContent === pracownikImie) {
+                        pracownik.remove();
+                    }
+                });
+            }
+        } else if (area === 'team') {
+            team.appendChild(pracownikDiv);
+            // Usunięcie pracownika z listy dostępnych pracowników
+            const dostepnePracownicy = document.querySelectorAll('.dostepnyPracownik');
+            dostepnePracownicy.forEach(pracownik => {
+                if (pracownik.textContent === pracownikImie) {
+                    pracownik.remove();
+                }
+            });
+            // Usunięcie pracownika z sekcji Home
+            const homePracownicy = home.querySelectorAll('div');
+            homePracownicy.forEach(pracownik => {
+                if (pracownik.textContent === pracownikImie) {
+                    pracownik.remove();
+                }
+            });
+        } else if (area === 'dostepniPracownicy') {
+            // Dodanie pracownika z powrotem do listy dostępnych pracowników
+            document.getElementById('dostepniPracownicy').appendChild(pracownikDiv);
+            // Usunięcie pracownika z sekcji Home
+            const homePracownicy = home.querySelectorAll('div');
+            homePracownicy.forEach(pracownik => {
+                if (pracownik.textContent === pracownikImie) {
+                    pracownik.remove();
+                }
+            });
+            // Usunięcie pracownika z sekcji Team
+            const teamPracownicy = team.querySelectorAll('div');
+            teamPracownicy.forEach(pracownik => {
+                if (pracownik.textContent === pracownikImie) {
+                    pracownik.remove();
+                }
+            });
+        }
+    }
+</script>
+
+</body>
+</html> -->
+

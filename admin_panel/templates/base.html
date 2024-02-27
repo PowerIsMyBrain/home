@@ -1,0 +1,200 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}DMD Panel Administratora{% endblock %}</title>
+  <!-- Dodanie Bootstrapa -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- Dodanie Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Dodatkowe stylizacje -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="/static/js/script.js"></script>
+  
+  
+</head>
+<body>
+    {% block header %}
+    <div class="offcanvas offcanvas-top oc-height jasne" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+        
+        <!-- Górny pasek nawigacji Bootstrapa -->
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top p-3 dropdown-menu-dark">
+            <a class="navbar-brand" href="#" data-bs-dismiss="offcanvas" aria-label="Close">
+                <img 
+                    src="https://dmddomy.pl/images/logo_ls_s_w.png" 
+                    alt="" style="padding-right: 10px; max-height: 35px;"/>
+                
+                Panel Administratora
+            </a>
+            <div class="bg-dark">
+                <div class="input-group mb-3" style="margin-top: 10px;">
+                    <input type="text" class="form-control bg-dark" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" placeholder="Wyszukaj" aria-label="Wyszukaj" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary bg-dark" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" type="button" id="button-addon2">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="przyklejone-divy">
+                <div class="klej">
+                    <div class="formatuj-maly-logout">
+                        Zalogowany jako {{username}}
+                    </div>
+                    <div class="formatuj">
+                        <a href="/logout">
+                            Wyloguj się
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="no-alpha" style="margin-top: 85px;">
+            <div class="tylko-klej">
+                <div class="card formatuj-margin bg-dark">
+                    <div class="card-body klej">
+                        <div class="column-expand">
+                            <p>Wejdź do świata Firmy DMD i zmień sposób myślenia! Wejdź do Firmy DMD! Wejdź i zmień sposób myślenia!</p>
+                        </div>
+                        <div class="formatuj-right formatuj-margin column-id">
+                            <button type="submit" class="btn btn-outline-success btn-sm" style="max-height: 30px; font-size: 12px;" onclick>Sprawdź</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card formatuj-margin bg-dark">
+                    <div class="card-body klej">
+                        <div class="column-expand">
+                            <p>Wejdź do świata Firmy DMD i zmień sposób myślenia!</p>
+                        </div>
+                        <div class="formatuj-right formatuj-margin column-id">
+                            <button type="submit" class="btn btn-outline-success btn-sm" style="max-height: 30px; font-size: 12px;" onclick>Sprawdź</button>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+            <div class="tylko-klej">
+                <div class="card formatuj-margin bg-dark">
+                    <div class="card-body klej">
+                        <div class="column-expand">
+                            <p>Wejdź do świata Firmy DMD i zmień sposób myślenia! Wejdź do Firmy DMD! Wejdź i zmień sposób myślenia!</p>
+                        </div>
+                        <div class="formatuj-right formatuj-margin column-id">
+                            <button type="submit" class="btn btn-outline-success btn-sm" style="max-height: 30px; font-size: 12px;" onclick>Sprawdź</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card formatuj-margin bg-dark">
+                    <div class="card-body klej">
+                        <div class="column-expand">
+                            <p>Wejdź do świata Firmy DMD i zmień sposób myślenia!</p>
+                        </div>
+                        <div class="formatuj-right formatuj-margin column-id">
+                            <button type="submit" class="btn btn-outline-success btn-sm" style="max-height: 30px; font-size: 12px;" onclick>Sprawdź</button>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+            <div class="tylko-klej">
+                <div class="card formatuj-margin bg-dark">
+                    <div class="card-body klej">
+                        <div class="column-expand">
+                            <p>Wejdź do świata Firmy DMD i zmień sposób myślenia! Wejdź do Firmy DMD! Wejdź i zmień sposób myślenia!</p>
+                        </div>
+                        <div class="formatuj-right formatuj-margin column-id">
+                            <button type="submit" class="btn btn-outline-success btn-sm" style="max-height: 30px; font-size: 12px;" onclick>Sprawdź</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card formatuj-margin bg-dark">
+                    <div class="card-body klej">
+                        <div class="column-expand">
+                            <p>Wejdź do świata Firmy DMD i zmień sposób myślenia!</p>
+                        </div>
+                        <div class="formatuj-right formatuj-margin column-id">
+                            <button type="submit" class="btn btn-outline-success btn-sm" style="max-height: 30px; font-size: 12px;" onclick>Sprawdź</button>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+        </div>
+    </div>
+    <div class="formatuj"> 
+        <a data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+            <img 
+                src="https://dmddomy.pl/images/logo_ls_s_w.png" 
+                alt="" style="padding-right: 10px; max-height: 35px;"/>
+        </a>
+    </div>
+    {% endblock %}
+    <div class="container-fluid">
+        <main role="main" class="col-md-auto ml-sm-auto col-lg-auto px-md-auto main-content">
+            <div class="mainContainer">
+                <!-- Navbar -->
+                <div class="p-2">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item ">
+                            {% block navbarTitle %}<a class="nav-link active dark-mode " aria-current="page" href="#">Użytkownicy</a>{% endblock %}
+                        </li>
+                        <li class="nav-item dropdown" style="margin-left: 2px;">
+                            <a class="nav-link dropdown-toggle link-light dark-mode" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="true">Opcje</a>
+                            <ul class="dropdown-menu dark-mode">
+                                <li><a class="dropdown-item" href="/home">Strona Główna</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                {% if userperm['users'] == 1 %}
+                                    <li><a class="dropdown-item" href="/user">Zarządzaj Użytkownikami</a></li>
+                                {% endif %}
+                                {% if userperm['blog'] == 1 %}
+                                    <li><a class="dropdown-item" href="/blog">Zarządzaj Blogiem</a></li>
+                                {% endif %}
+                                {% if userperm['newsletter'] == 1 %}
+                                    <li><a class="dropdown-item" href="/newsletter">Zarządzaj Newsletterem</a></li>
+                                {% endif %}
+                                {% if userperm['subscribers'] == 1 %}
+                                    <li><a class="dropdown-item" href="/subscriber">Zarządzaj Subskrybentami</a></li>
+                                {% endif %}
+                                {% if userperm['team'] == 1 %}    
+                                    <li><a class="dropdown-item" href="/team">Zarządzaj Kadrą</a></li>
+                                {% endif %}
+                                {% if userperm['settings'] == 1 %} 
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/setting">Ustawienia</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                        {% block addButton %}
+                        <li style="margin-left: 15px;">
+                            <a href="#"><i class="bi bi-plus-square-fill" style="font-size: 18pt; color: rgb(23, 209, 23) !important;"></i></a>
+                        </li>
+                        {% endblock %}
+                    </ul>
+                    
+                    <div class="table-creator">
+                        <!-- Kod do wyświetlania flash messages -->
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <div>
+                                    {% for message in messages %}
+                                        <div style="color: green;">{{ message }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                        <!-- linia headera tabeli -->
+                    {% block tableHeader %} {% endblock %}
+                    {% block tableContent%} {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+<!-- Stopka z trybem ciemnym i przyciskiem wylogowania -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        {% block footer%}{% endblock %}
+      </div>
+    </div>
+  </footer>
+</body>

@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}DMD Panel Administratora - Zarządzanie Subskrybentami{% endblock %}
+
+{% block addButton %}{% endblock %}
+{% block navbarTitle %}<a class="nav-link active dark-mode " aria-current="page" href="#">Zarządzanie Subskrybentami</a>{% endblock %}
+
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                <div style="color: #8bff4d;">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+{% block tableHeader %}
+                        <div class="row">
+                            <div class="klej formatuj-header">
+                                <div class="column-id">
+                                    #
+                                </div>
+                                <div  class="column-expand">
+                                    Imię
+                                </div>
+                                <div  class="column-usual">
+                                    Email
+                                </div>
+                                <div  class="column-usual">
+                                    Status
+                                </div>
+                                <div  class="column-ender">
+                                    <i class="bi bi-person-gear"></i> Akcja 
+                                </div>
+                            </div>
+                        </div>
+{% endblock %}
+{% block tableContent%}
+                        
+                        {% for subs_data in subs %}
+                            {% set subs_id  = subs_data['id'] %}
+                        <!-- linia contentu tabeli ciemna-->
+                        <div class="row">
+                            <div class="klej {% if loop.index is even %}formatuj-light-line{% else %}formatuj-dark-line{% endif %}" >
+                                <div class="column-id" data-bs-toggle="collapse" href="#collapse_id_{{subs_id}}" role="button" aria-expanded="false" aria-controls="collapse_id_{{subs_id}}">
+                                    {{subs_id}}
+                                </div>
+                                <div  class="column-expand" data-bs-toggle="collapse" href="#collapse_id_{{subs_id}}" role="button" aria-expanded="false" aria-controls="collapse_id_{{subs_id}}">
+                                    <a data-bs-toggle="collapse" href="#collapse_id_{{subs_id}}" role="button" aria-expanded="false" aria-controls="collapse_id_{{subs_id}}">
+                                        {{subs_data['name']}}
+                                    </a>
+                                </div>
+                                <div  class="column-usual" data-bs-toggle="collapse" href="#collapse_id_{{subs_id}}" role="button" aria-expanded="false" aria-controls="collapse_id_{{subs_id}}">
+                                    <a data-bs-toggle="collapse" href="#collapse_id_{{subs_id}}" role="button" aria-expanded="false" aria-controls="collapse_id_{{subs_id}}">
+                                        {{subs_data['email']}}
+                                    </a>
+                                </div>
+                                <div  class="column-usual" data-bs-toggle="collapse" href="#collapse_id_{{subs_id}}" role="button" aria-expanded="false" aria-controls="collapse_id_{{subs_id}}">
+                                    <a data-bs-toggle="collapse" href="#collapse_id_{{subs_id}}" role="button" aria-expanded="false" aria-controls="collapse_id_{{subs_id}}">
+                                        {% if subs_data['status'] == '1' %}
+                                            <span style="color: #46ff56 !important;">Aktywny</span>
+                                        {% else %}
+                                        <span style="color: #878787 !important;">Niezweryfikowany</span>
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                <div class="column-ender">
+                                    
+                                    <form id="removePost_{{subs_id}}" action="{{ url_for('remove_post') }}" enctype="multipart/form-data" onsubmit="return confirm('Czy na pewno chcesz usunąć subskrybenta?');">
+                                        {% if userperm['commnets'] == 1 %}
+                                            <a data-bs-toggle="collapse" href="#collapse_id_{{subs_id}}" role="button" aria-expanded="false" aria-controls="collapse_id_{{subs_id}}"><i class="bi bi-chat-left-text" style="color: rgb(217, 217, 217) !important;"></i></a>
+                                        {% endif %}
+                                        <a href="mailto:{{subs_data['name']}}"><i class="bi bi-envelope-at" style="color: rgb(89, 176, 90) !important;"></i></a>
+                                        <input type="hidden" name="UserName_{{subs_id}}" id="UserName_{{subs_id}}" value="{{username}}"/>
+                                        <button type="submit" class="custom-icon-button"><i class="bi bi-trash-fill" style="color: rgb(149, 47, 47) !important;"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- collapse start -->
+                        {% if userperm['commnets'] == 1 %}
+                        <div class="sub-panel podswietlaj rogi collapse formatyj-maly-wiersz" id="collapse_id_{{subs_id}}">
+                            {% for comment in subs_data['comments'].values() %}
+                            <div class="tylko-klej">
+                                <div class="colapse-column-expand-mini formatuj-max-height">
+                                    {{comment['message']}}
+                                </div>
+                                <div class="colapse-column-usual-mini formatuj-max-height">
+                                    {{comment['post_title']}}
+                                </div>
+                                <div class="colapse-column-usual-mini formatuj-max-height">
+                                    {{comment['data-time']}}
+                                </div>
+                                <div  class="colapse-column-ender-mini">
+                                    <form id="removeComment_{{subs_id}}" action="{{ url_for('remove_comment') }}" enctype="multipart/form-data" onsubmit="return confirm('Czy na pewno chcesz usunąć komentarz?');">
+                                        <input type="hidden" name="UserName_{{subs_id}}" id="UserName_{{subs_id}}" value="{{username}}"/>
+                                        <button type="submit" class="custom-icon-button"><i class="bi bi-trash" style="color: rgb(205, 93, 93) !important;"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        <!-- collapse end -->
+                        {% endfor %}
+                        <!-- Paginacja -->
+                        <span class="formatuj-maly-logout">{{ pagination.info }}</span>
+                        <div class="pagination formatuj-margin-top">
+                            <nav aria-label="Page navigation example">                            
+                                <ul class="pagination justify-content-center dark-mode">
+                                    <li class="page-item">{{ pagination.prev }}</li>
+                                    <li class="page-item">{{ pagination.links }}</li>
+                                    <li class="page-item">{{ pagination.next }}</li>
+                                </ul>
+                            </nav>
+                        </div>
+{% endblock %}
+
+
+{% block footer %}
+ To jest stopka panelu administracyjnego. All right reserved &copy; 2024 by DMD Panel Administratora.<br/>
+{% endblock %}

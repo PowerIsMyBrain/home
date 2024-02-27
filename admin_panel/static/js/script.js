@@ -133,9 +133,89 @@ function joinListFields(id, sep, elementName="dynamicField",) {
 
     // Wyświetl wynik w konsoli (możesz zmienić to na zapis do bazy danych)
     console.log(resultString);
+    return resultString;
 }
 
 
-// Przykład wywołania funkcji joinListFields
-// Możesz umieścić to w odpowiednim miejscu w kodzie, np. po wciśnięciu przycisku "Zapisz"
-// joinListFields();
+// function prepareAndSubmitForm(postId) {
+//     // Pobierz dane za pomocą funkcji joinListFields i ustaw wartości ukrytych pól formularza
+//     var tagsFieldData = joinListFields(postId, ', ', 'dynamicTagsField');
+//     var dynamicFieldData = joinListFields(postId, '#splx#', 'dynamicField');
+
+//     document.getElementById('tagsFieldData_'+postId).value = tagsFieldData;
+//     document.getElementById('dynamicFieldData_'+postId).value = dynamicFieldData;
+
+//     // Znajdź formularz i wyślij go
+//     var form = document.getElementById('editPost_'+postId);
+//     form.submit();
+// }
+
+function prepareAndSubmitForm(postId, oldFotos=true) {
+    // Sprawdź, czy wymagane pola są wypełnione
+    var title = document.getElementById('title_' + postId).value;
+    var introduction = document.getElementById('introduction_' + postId).value;
+    var highlight = document.getElementById('Highlight_' + postId).value;
+
+    var mainFoto = document.getElementById('mainFoto_' + postId).value;
+    var contentFoto = document.getElementById('contentFoto_' + postId).value;
+
+    var category = document.getElementById('category_' + postId).value;
+
+    var dynamicFieldData = joinListFields(postId, '#splx#', 'dynamicField');
+    var tagsFieldData = joinListFields(postId, ', ', 'dynamicTagsField');
+    
+
+    console.log("tags Field Data: " + tagsFieldData, "Dynamic field data: " + dynamicFieldData);
+
+    if (!oldFotos) {
+        if (!title || !introduction || !highlight || !mainFoto || !contentFoto || !tagsFieldData || !dynamicFieldData || !category ) {
+            alert('Wypełnij wszystkie wymagane pola przed zapisaniem artykułu.');
+            return;  // Zatrzymaj przesyłanie formularza
+        };
+    } else {
+        if (!title || !introduction || !highlight || !tagsFieldData || !dynamicFieldData || !category) {
+            alert('Wypełnij wszystkie wymagane pola przed zapisaniem artykułu.');
+            return;  // Zatrzymaj przesyłanie formularza
+        };
+    }
+
+    // Pobierz dane za pomocą funkcji joinListFields i ustaw wartości ukrytych pól formularza
+    
+
+    document.getElementById('tagsFieldData_'+postId).value = tagsFieldData;
+    document.getElementById('dynamicFieldData_'+postId).value = dynamicFieldData;
+
+    // Znajdź formularz i wyślij go
+    var form = document.getElementById('editPost_'+postId);
+    form.submit();
+}
+
+function previewImage(input, previewId, targetWidth, targetHeight, errorMargin) {
+    var preview = document.getElementById(previewId);
+    var file = input.files[0];
+    var reader = new FileReader();
+
+    reader.onloadend = function () {
+        var img = new Image();
+        img.src = reader.result;
+
+        img.onload = function () {
+            if (
+                img.width >= targetWidth - errorMargin && img.width <= targetWidth + errorMargin &&
+                img.height >= targetHeight - errorMargin && img.height <= targetHeight + errorMargin
+            ) {
+                preview.src = reader.result;
+            } else {
+                alert('Nieprawidłowy rozmiar obrazu. Wymagane wymiary to ' + targetWidth + 'x' + targetHeight + ' z marginesem błędu ' + errorMargin + ' pikseli. Twój obrazek ma ' + img.width + 'x' + img.height);
+                input.value = '';  // Wyczyszczenie inputa
+                preview.src = '';  // Wyczyszczenie podglądu
+            }
+        };
+    }
+
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = "";
+    }
+}

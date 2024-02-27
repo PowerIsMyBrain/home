@@ -1,0 +1,4 @@
+Flask==2.0.2
+Flask-WTF==0.15.1
+Flask-Paginate==2023.10.24
+Werkzeug==2.0.2

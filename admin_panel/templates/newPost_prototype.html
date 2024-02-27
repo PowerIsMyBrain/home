@@ -1,0 +1,110 @@
+                                        <form method="POST" id="editPost_9999999" action="{{ url_for('save_post') }}" enctype="multipart/form-data">
+                                            <!-- Tytuł artykułu -->
+                                            <div class="mb-3">
+                                            <label for="title_9999999" class="form-label">Tytuł artykułu</label>
+                                            <input 
+                                                    type="text" 
+                                                    value=""
+                                                    class="form-control bg-dark formatuj-maly-font" 
+                                                    style="color:#6d6d6d; border:#6a6a6a solid 1px;"
+                                                    id="title_9999999" 
+                                                    name="title_9999999" 
+                                                    required>
+                                            </div>
+    
+                                            <!-- Wstęp -->
+                                            <div class="mb-3">
+                                            <label for="introduction_9999999" class="form-label">Wstęp</label>
+                                            <textarea 
+                                                    class="form-control bg-dark formatuj-maly-font" 
+                                                    style="color:#6d6d6d; border:#6a6a6a solid 1px;"
+                                                    id="introduction_9999999" 
+                                                    name="introduction_9999999" 
+                                                    rows="4" required></textarea>
+                                            </div>
+    
+                                            <!-- Highlight -->
+                                            <div class="mb-3">
+                                            <label for="highlight_9999999" class="form-label">Highlight</label>
+                                            <textarea 
+                                                    class="form-control bg-dark formatuj-maly-font" 
+                                                    style="color:#6d6d6d; border:#6a6a6a solid 1px;"
+                                                    id="Highlight_9999999" 
+                                                    name="Highlight_9999999" 
+                                                    rows="4" required></textarea>
+                                            </div>
+    
+                                            <!-- Main Foto -->
+                                            <div class="mb-3">
+                                                <label for="mainFoto_9999999" class="form-label">Main Foto (1920x750)</label>
+                                                <div>
+                                                    <img src="" style="max-height: 100px; max-width: 400px; border-radius: 10px; margin-bottom: 10px;" id="mainFotoPreview_9999999" />
+                                                </div>
+                                                <div>
+                                                    <input type="file" class="form-control bg-dark formatuj-maly-font" style="color:#6d6d6d;" id="mainFoto_9999999" name="mainFoto_9999999" accept="image/*" onchange="previewImage(this, 'mainFotoPreview_9999999', 1920, 750, 3)">
+                                                </div>
+                                            </div>
+    
+                                            <!-- Content Foto -->
+                                            <div class="mb-3">
+                                                <label for="contentFoto_9999999" class="form-label">Content Foto (750x430)</label>
+                                                <div>
+                                                    <img src="" style="max-height: 100px; max-width: 400px; border-radius: 10px; margin-bottom: 10px;" id="contentFotoPreview_9999999" />
+                                                </div>  
+                                                <div>
+                                                    <input type="file" class="form-control bg-dark formatuj-maly-font" style="color:#6d6d6d;" id="contentFoto_9999999" name="contentFoto_9999999" accept="image/*" onchange="previewImage(this, 'contentFotoPreview_9999999', 750, 430, 3)">
+                                                </div>
+                                            </div>
+    
+                                            <!-- Additional List -->
+                                            <div class="mb-3">
+                                                <label for="additionalList9999999" class="form-label">Additional List</label>
+                                                <div id="list-container9999999" class="no-border">
+                                                    <!-- Tutaj będą dynamicznie dodawane elementy listy -->
+                                                </div>
+                                                <div class="formatuj-right formatuj-margin">
+                                                    <button type="button" class="btn btn-warning btn-sm" onclick="addListItem('9999999')">Dodaj pole</button>
+                                                </div>
+                                            </div>
+    
+                                            <!-- Tags -->
+                                            <div class="mb-3">
+                                                <label for="tags9999999" class="form-label">Tags</label>
+                                                <div id="list-tag-container9999999" class="no-border">
+                                                    <!-- Tutaj będą dynamicznie dodawane elementy listy -->
+                                                </div>
+                                                <div class="formatuj-right formatuj-margin">
+                                                    <button 
+                                                            type="button" 
+                                                            class="btn btn-warning btn-sm" 
+                                                            onclick="addListItem(
+                                                                                '9999999', 
+                                                                                'dynamicTagsField',
+                                                                                'input',
+                                                                                'form-control bg-dark formatuj-maly-font',
+                                                                                'additionalTagList',
+                                                                                '4',
+                                                                                '#6d6d6d',
+                                                                                '#6a6a6a solid 1px',
+                                                                                true,
+                                                                                'no-border formatuj-margin form-control bg-dark formatuj-right',
+                                                                                'list-tag-container',
+                                                                                'btn btn-outline-danger formatuj-maly-font formatuj-margin',
+                                                                                'Usuń tag'
+                                                                                )">
+                                                        Dodaj Tag
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Category -->
+                                            <div class="mb-3">
+                                                <label for="category_9999999" class="form-label">Kategoria</label>
+                                                <input type="text" value="" class="form-control bg-dark formatuj-maly-font" style="color:#6d6d6d; border:#6a6a6a solid 1px;" id="category_9999999" name="category_9999999" required>
+                                            </div>
+                                            <!-- Ukryte pola formularza -->
+                                            <input type="hidden" name="tagsFieldData_9999999" id="tagsFieldData_9999999" />
+                                            <input type="hidden" name="dynamicFieldData_9999999" id="dynamicFieldData_9999999" />
+                                            <!-- Przycisk Zapisz artykuł -->
+                                            <button type="button" class="btn btn-success btn-sm" style="max-height: 30px; font-size: 12px;" onclick="prepareAndSubmitForm('9999999')">Dodaj artykuł</button>
+                                        </form>

@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block title %}DMD Panel Administratora - Strona główna{% endblock %}
+
+{% block addButton %}{% endblock %}
+
+{% block navbarTitle %}<a class="nav-link active dark-mode " aria-current="page" href="#">Strona główna</a>{% endblock %}
+
+{% block tableHeader %}{% endblock %}
+{% block tableContent%}
+<!-- collapse start -->
+<div class="jasne rogi formatyj-maly-wiersz">
+    <div class="tylko-klej">
+        <div class="colapse-column-usual"  style="max-width: 220px;">
+            <div style="text-align: right;">
+                <a data-bs-toggle="collapse" href="#collapse_id_0_{{username}}" role="button" aria-expanded="false" aria-controls="collapse_id_0_{{username}}" style="color: rgb(202, 236, 253) !important;">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+            </div>
+            <div>
+                <img class="avatar" src="{{users_data['avatar']}}" alt=""/>
+            </div>
+            <!-- collapse wewnętrzny -->
+            <div class="collapse" style="max-width: 400px;" id="collapse_id_0_{{username}}">
+                <div class="tylko-klej">
+                    <div>
+                        <div>
+                            <h7>Podmień avatar</h7>
+                        </div>
+                        <div class="formatuj formatuj-maly-font">
+                            <div style="margin-bottom: 10px;">
+                                Wybierz plik: 
+                            </div>
+                            <input input type="file" class="form-control" style="max-height: 30px; font-size: 12px;" id="upload"  />
+                        </div>
+                        <div class="tylko-klej">
+                            <div class="formatuj formatuj-left" style="margin-bottom: 10px;">
+                                <button type="submit" class="btn btn-outline-secondary btn-sm"  style="max-height: 30px; font-size: 12px;" onclick>Zmień Avatar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="colapse-column-usual formatuj-left">
+            <!-- informacje o Użytkowniku -->
+            <div class="user-data">
+                <div class="klej">
+                    <div class="">
+                        <h5 class="fw-bold">Informacje o użytkowniku</h5>
+                    </div>
+                </div>
+                <div class="tylko-klej">
+                    <div class="profil-desc">
+                        Email:
+                    </div>
+                    <div class="profil-content">
+                        {{users_data['email']}}
+                    </div>
+                </div>
+                <div class="tylko-klej">
+                    <div class="profil-desc">
+                        Dane:
+                    </div>
+                    <div class="profil-content">
+                        {{users_data['name']}}
+                    </div>
+                </div>
+                <div class="tylko-klej">
+                    <div class="profil-desc">
+                        User:
+                    </div>
+                    <div class="profil-content">
+                        {{users_data['username']}}
+                    </div>
+                </div>
+                <div class="tylko-klej">
+                    <div class="profil-desc">
+                        Stanowisko:
+                    </div>
+                    <div class="profil-content">
+                        {{users_data['stanowisko']}}
+                    </div>
+                </div>
+                <div class="tylko-klej">
+                    <div class="profil-desc">
+                        Opis:
+                    </div>
+                    <div class="profil-info">
+                        {{users_data['opis']}}
+                    </div>
+                </div>
+                
+
+                <div class="tylko-klej">
+                    <div class="profil-desc">
+                        ACTIONS:
+                    </div>
+                    <div class="profil-content">
+                        <!-- <a data-bs-toggle="collapse" href="#collapse_id_00" role="button" aria-expanded="false" aria-controls="collapse_id_00"><i class="bi bi-info-square" style="color: rgb(0, 196, 49) !important;"></i></a> -->
+                        <a data-bs-toggle="collapse" href="#collapse_id_3_{{username}}" role="button" aria-expanded="false" aria-controls="collapse_id_3_{{username}}"><i class="bi bi-pencil-square" style="color: rgb(25, 101, 22) !important;"></i></a>
+                        <a data-bs-toggle="collapse" href="#collapse_id_1_{{username}}" role="button" aria-expanded="false" aria-controls="collapse_id_1_{{username}}"><i class="bi bi-key-fill" style="color: rgb(179, 116, 34) !important;"></i></a>
+                    </div>
+                </div>
+                <div id="accordion_{{username}}">
+                    <!-- collapse wewnętrzny -->
+                    <div class="collapse" style="max-width: 250px;" id="collapse_id_1_{{username}}" data-bs-parent="#accordion_{{username}}">
+                        <div class="tylko-klej col-auto">
+                            <div>
+                                <div class="table-creator">
+                                    <h7>Zmień hasło</h7>
+                                </div>
+                                <input  input type="password" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="inputPassword1" placeholder="Old Password" />
+                                <input  input type="password" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="inputPassword2" placeholder="New Password" />
+                                <input  input type="password" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="inputPassword3" placeholder="Repeat Password" />
+                                <div class="tylko-klej">
+                                    <div style="padding-left: 8px; max-width:  80px;">
+                                        <button type="submit" class="btn btn-secondary btn-sm" style="max-height: 30px; font-size: 12px;" onclick>Anuluj</button>
+                                    </div>
+                                    <div class="formatuj-left">
+                                        <button type="submit" class="btn btn-success btn-sm" style="max-height: 30px; font-size: 12px;" onclick>Zapisz zmiany</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- collapse wewnętrzny -->
+                    <div class="collapse" style="max-width: 250px;" id="collapse_id_3_{{username}}" data-bs-parent="#accordion_{{username}}">
+                        <div class="tylko-klej col-auto">
+                            <div>
+                                <div class="table-creator">
+                                    <h7>Zmień dane</h7>
+                                </div>
+                                <input  type="text" value="{{users_data['name']}}" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="name_{{username}}" placeholder="Imię i Nazwisko" />
+                                <input  type="email" value="{{users_data['email']}}" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="email_{{username}}" placeholder="Adres e-mail" />
+                                <input  type="text" value="{{users_data['stanowisko']}}" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="role_{{username}}" placeholder="Stanowisko" />
+                                <!-- <input  input type="text" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px;" id="inputPassword3" placeholder="Repeat Password" /> -->
+                                <div class="tylko-klej">
+                                    <div style="padding-left: 8px; max-width:  80px;">
+                                        <button type="submit" class="btn btn-secondary btn-sm" style="max-height: 30px; font-size: 12px;" onclick>Anuluj</button>
+                                    </div>
+                                    <div class="formatuj-left">
+                                        <button type="submit" class="btn btn-success btn-sm" style="max-height: 30px; font-size: 12px;" onclick>Zapisz zmiany</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+ To jest stopka panelu administracyjnego. All right reserved &copy; 2024 by DMD Panel Administratora.<br/>
+{% endblock %}
