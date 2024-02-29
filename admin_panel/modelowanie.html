@@ -4,68 +4,220 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Sterowania Pracownikami</title>
+    <!-- Dodanie Bootstrapa -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Dodanie Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Dodatkowe stylizacje -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/script.js"></script>
     <style>
         #home, #team {
-            display: flex;
             margin-bottom: 20px;
         }
 
-        #home div, #team div {
-            flex: 1;
-            min-width: 250px;
-            min-height: 250px;
-            border: 1px solid #ccc;
-            padding: 5px;
-            margin-right: 5px;
-            cursor: move;
-            background-color: #fff;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .dostepnyPracownik {
+        #home div, #team div, .dostepnyPracownik {
+            width: 100px !important;
+            height: 100px !important;
+            margin-top: 5px;
             margin-bottom: 5px;
             cursor: move;
             border: 1px solid #ccc;
             padding: 5px;
             border-radius: 50%;
-            background-color: #fff;
+            background-color: #000000;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end; /* Zmieniono z 'center' na 'flex-end' */
+            position: relative;
+            padding-top: 50px;
+            font-weight: bold; /* Pogrubienie tekstu */
+            text-decoration: underline; /* Opcjonalne: dodanie podkreślenia (przykładowa dekoracja) */
+            font-size: medium;
+        }
+
+        #home div::after,
+        #team div::after,
+        .dostepnyPracownik::after {
+            content: "";
+            height: 3px;
+            width: 100%;
+        }
+
+        .dostepnyPracownik {
+            width: 100px !important;
+            height: 100px !important;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            cursor: move;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 50%;
+            background-color: #000000;
+            background-size: cover; /* Dodaj to */
+            background-position: center;
+            background-repeat: no-repeat;
+            color:#ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content:  flex-end;
+            position: relative;
+            padding-top: 50px;
+            font-weight: bold; /* Pogrubienie tekstu */
+            text-decoration: underline; /* Opcjonalne: dodanie podkreślenia (przykładowa dekoracja) */
+        }
+
+        .ramka_tekstu {
+            background-color: black;
+            color: #ccc;
+            border: 1px solid #ccc;
+            border-radius: 10%;
+            margin-top: 150px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 0px;
+            padding-bottom: 3px;
         }
     </style>
+    <script>
+        // Obrazy do preładowania
+        var imagesToPreload = [
+            "https://dmddomy.pl/images/team/tm-01-460x460-pawel_perlinski.png",
+            // Dodaj inne adresy URL obrazów tutaj
+        ];
+
+        // Funkcja do preładowania obrazów
+        function preloadImages(images, callback) {
+            var loaded = 0;
+            images.forEach(function (imageUrl) {
+                var img = new Image();
+                img.onload = function () {
+                    loaded++;
+                    if (loaded === images.length) {
+                        callback();
+                    }
+                };
+                img.src = imageUrl;
+            });
+        }
+
+        // Preładowanie obrazów przed załadowaniem strony
+        preloadImages(imagesToPreload, function () {
+            // Po załadowaniu obrazów przypisz je do elementów
+            assignImagesToElements();
+        });
+
+        // Funkcja przypisująca obrazy do elementów
+        function assignImagesToElements() {
+            var pracownicy = document.querySelectorAll('.dostepnyPracownik');
+            pracownicy.forEach(function (pracownik) {
+                var imageUrl = pracownik.getAttribute("data-image-url");
+                pracownik.style.backgroundImage = `url('${imageUrl}')`;
+            });
+        }
+    </script>
 </head>
 <body>
 
 <div id="panelSterowania">
-    <h2>Panel Sterowania Pracownikami</h2>
+    <!-- dropdown -->
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" style="min-width: 160px;" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+            Domy
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+            <li><a class="dropdown-item active" href="#">Domy</a></li>
+            <li><a class="dropdown-item" href="#">Budownictwo</a></li>
+            <li><a class="dropdown-item" href="#">EliteHome</a></li>
+            <li><a class="dropdown-item" href="#">Instalacje</a></li>
+            <li><a class="dropdown-item" href="#">Development</a></li>
+            <li><a class="dropdown-item" href="#">Inwestycje</a></li>
 
-    <div>
-        <h3>Home</h3>
-        <div id="home" ondrop="upusc('home', event)" ondragover="dopuszczalnePrzesuniecie(event)">Upuść tutaj</div>
+
+        </ul>
+    </div>
+    <!-- dropdown END -->
+    <div class="container px-4">
+        <div class="row gx-5">
+            <div class="col">
+                <div class="p-3 border bg-dark">
+                    <Span style="color: #ccc;">Home</Span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-3 border bg-dark">
+                    <Span style="color: #ccc;">Team</Span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container px-4">
+        <div class="row gx-5">
+            <div class="col">
+                <div class="p-3 border bg-dark">
+                    <div style="width: 100% ;justify-content: center;">
+                        <div id="home" style="display: flex; width: 100% !important; min-width: 300px !important; min-height: 180px !important;" ondrop="upusc('home', event)" ondragover="dopuszczalnePrzesuniecie(event)">
+                            <!-- Upuść tutaj -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-3 border bg-dark">
+                    <div style="width: 100% ;justify-content: center;">
+                        <div id="team" style="display: flex; width: 100% !important; min-width: 300px !important; min-height: 180px !important;" ondrop="upusc('team', event)" ondragover="dopuszczalnePrzesuniecie(event)">
+                            <!-- Upuść tutaj -->
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container px-4">
+        <div class="row gx-5">
+            <div class="col">
+                <div class="p-3 border bg-dark">
+                    <Span style="color: #ccc;">Dostępni Pracownicy</Span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container px-4 rogi">
+        <div class="row gx-5">
+            <div class="col">
+                <div class="p-3 border bg-dark">
+                    <div style="width: 100% ;justify-content: center;">
+                        <div id="dostepniPracownicy" style="display: flex; width: 100% !important; min-width: 300px !important; min-height: 180px !important;" ondrop="upusc('dostepniPracownicy', event)" ondragover="dopuszczalnePrzesuniecie(event)">
+                            <div class="dostepnyPracownik" style="width: 100px !important; height: 100px !important;" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle" data-image-url="https://dmddomy.pl/images/team/tm-01-460x460-pawel_perlinski.png">Anna</div>
+                            <div class="dostepnyPracownik" style="width: 100px !important; height: 100px !important;" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle" data-image-url="https://dmddomy.pl/images/team/tm-01-460x460-pawel_perlinski.png">Jan</div>
+                            <div class="dostepnyPracownik" style="width: 100px !important; height: 100px !important;" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle" data-image-url="https://dmddomy.pl/images/team/tm-01-460x460-pawel_perlinski.png">Katarzyna</div>
+                            <div class="dostepnyPracownik" style="width: 100px !important; height: 100px !important;" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle" data-image-url="https://dmddomy.pl/images/team/tm-01-460x460-pawel_perlinski.png">Piotr</div>
+                            <div class="dostepnyPracownik" style="width: 100px !important; height: 100px !important;" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle" data-image-url="https://dmddomy.pl/images/team/tm-01-460x460-pawel_perlinski.png">Ewa</div>
+                            <div class="dostepnyPracownik" style="width: 100px !important; height: 100px !important;" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle" data-image-url="https://dmddomy.pl/images/team/tm-01-460x460-pawel_perlinski.png">Michał</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div>
-        <h3>Team</h3>
-        <div id="team" ondrop="upusc('team', event)" ondragover="dopuszczalnePrzesuniecie(event)">Upuść tutaj</div>
-    </div>
-
-    <div id="dostepniPracownicy" ondrop="upusc('dostepniPracownicy', event)" ondragover="dopuszczalnePrzesuniecie(event)">
-        <h3>Dostępni Pracownicy</h3>
-        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle">Michał</div>
-        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle">Anna</div>
-        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle">Jan</div>
-        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle">Katarzyna</div>
-        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle">Piotr</div>
-        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)" data-shape="circle">Ewa</div>
-    </div>
+    <button class="btn btn-secondary" onclick="pobierzIKonsolujKolejnosc('home'), pobierzIKonsolujKolejnosc('team')">Pobierz kolejność</button><br/>
 </div>
 
 <script>
     function przeciagnij(event) {
         event.dataTransfer.setData("text/plain", event.target.textContent);
         event.dataTransfer.setData("shape", event.target.getAttribute("data-shape"));
+        event.dataTransfer.setData("image-url", event.target.getAttribute("data-image-url"));
+        event.target.classList.add("clone"); // Oznacz element jako klon
     }
 
     function dopuszczalnePrzesuniecie(event) {
@@ -76,29 +228,41 @@
         event.preventDefault();
         const pracownikImie = event.dataTransfer.getData("text/plain");
         const pracownikShape = event.dataTransfer.getData("shape");
+        const pracownikImageUrl = event.dataTransfer.getData("image-url");
 
         const pracownikDiv = document.createElement("div");
         pracownikDiv.textContent = pracownikImie;
         pracownikDiv.draggable = true;
+        pracownikDiv.className = "dostepnyPracownik";
         pracownikDiv.setAttribute("data-shape", pracownikShape);
+            
+        if (pracownikImageUrl) {
+            pracownikDiv.setAttribute("data-image-url", pracownikImageUrl);
+            pracownikDiv.style.backgroundImage = `url('${pracownikImageUrl}')`; 
+        }
+
         pracownikDiv.addEventListener("dragstart", przeciagnij);
 
         if (area === 'home') {
-            if (home.childElementCount < 4 && !czyPracownikIstnieje(home, pracownikImie)) {
+            if (home.childElementCount < 4 && !czyPracownikIstnieje(home, pracownikImie) && !czyPracownikIstnieje(team, pracownikImie)) {
                 home.appendChild(pracownikDiv);
                 usunPracownikaZListy('dostepniPracownicy', pracownikImie);
+                usunPracownikaZListy('team', pracownikImie);
             } else {
                 alert("Można publikować maksymalnie 4 pracowników na stronie głównej. Pracownik przeniesiony do Team.");
-                team.appendChild(pracownikDiv);
-                usunPracownikaZListy('dostepniPracownicy', pracownikImie);
             }
         } else if (area === 'team' && !czyPracownikIstnieje(home, pracownikImie) && !czyPracownikIstnieje(team, pracownikImie)) {
             team.appendChild(pracownikDiv);
             usunPracownikaZListy('dostepniPracownicy', pracownikImie);
+            usunPracownikaZListy('home', pracownikImie);
         } else if (area === 'dostepniPracownicy' && !czyPracownikIstnieje(dostepniPracownicy, pracownikImie)) {
             document.getElementById('dostepniPracownicy').appendChild(pracownikDiv);
             usunPracownikaZListy('home', pracownikImie);
             usunPracownikaZListy('team', pracownikImie);
+        } 
+        else {
+            // Jeśli próbujesz przeciągnąć z "home" do "team" lub odwrotnie, zablokuj operację
+            alert("Nie można przeciągać między 'home' a 'team'.");
         }
     }
 
@@ -110,6 +274,7 @@
                 istnieje = true;
             }
         });
+
         return istnieje;
     }
 
@@ -121,152 +286,26 @@
             }
         });
     }
+
+    function pobierzKolejnosc(sekcja) {
+        const elementy = sekcja.querySelectorAll('div');
+        const kolejnosc = Array.from(elementy).map(element => element.textContent);
+        console.log(`Kolejność w sekcji ${sekcjaId}:`, kolejnosc);
+        return kolejnosc;
+    }
+
+    function pobierzIKonsolujKolejnosc(sekcjaId) {
+        const sekcja = document.getElementById(sekcjaId);
+        const elementy = sekcja.querySelectorAll('div');
+        const kolejnosc = Array.from(elementy).map(element => element.textContent);
+        
+        console.log(`Kolejność w sekcji ${sekcjaId}:`, kolejnosc);
+    }
+
+    
 </script>
 
 </body>
 </html>
 
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Sterowania Pracownikami</title>
-    <style>
-        #home, #team {
-            display: flex;
-            margin-bottom: 20px;
-        }
-
-        #home div, #team div {
-            flex: 1;
-            min-width: 250px;
-            min-height: 250px;
-            border: 1px solid #ccc;
-            padding: 5px;
-            margin-right: 5px;
-            cursor: move;
-            background-color: #fff;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .dostepnyPracownik {
-            margin-bottom: 5px;
-            cursor: move;
-            border: 1px solid #ccc;
-            padding: 5px;
-            border-radius: 50%;
-            background-color: #fff;
-        }
-    </style>
-</head>
-<body>
-
-<div id="panelSterowania">
-    <h2>Panel Sterowania Pracownikami</h2>
-
-    <div>
-        <h3>Home</h3>
-        <div id="home" ondrop="upusc('home', event)" ondragover="dopuszczalnePrzesuniecie(event)">Upuść tutaj</div>
-    </div>
-
-    <div>
-        <h3>Team</h3>
-        <div id="team" ondrop="upusc('team', event)" ondragover="dopuszczalnePrzesuniecie(event)">Upuść tutaj</div>
-    </div>
-
-    <div id="dostepniPracownicy" ondrop="upusc('dostepniPracownicy', event)" ondragover="dopuszczalnePrzesuniecie(event)">
-        <h3>Dostępni Pracownicy</h3>
-        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)">Michał</div>
-        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)">Anna</div>
-        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)">Jan</div>
-        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)">Katarzyna</div>
-        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)">Piotr</div>
-        <div class="dostepnyPracownik" draggable="true" ondragstart="przeciagnij(event)">Ewa</div>
-    </div>
-</div>
-
-<script>
-    function przeciagnij(event) {
-        event.dataTransfer.setData("text/plain", event.target.textContent);
-    }
-
-    function dopuszczalnePrzesuniecie(event) {
-        event.preventDefault();
-    }
-
-    function upusc(area, event) {
-        event.preventDefault();
-        const pracownikImie = event.dataTransfer.getData("text/plain");
-
-        const pracownikDiv = document.createElement("div");
-        pracownikDiv.textContent = pracownikImie;
-        pracownikDiv.draggable = true;
-        pracownikDiv.addEventListener("dragstart", przeciagnij);
-
-        if (area === 'home') {
-            if (home.childElementCount < 4) {
-                home.appendChild(pracownikDiv);
-                // Usunięcie pracownika z listy dostępnych pracowników
-                const dostepnePracownicy = document.querySelectorAll('.dostepnyPracownik');
-                dostepnePracownicy.forEach(pracownik => {
-                    if (pracownik.textContent === pracownikImie) {
-                        pracownik.remove();
-                    }
-                });
-            } else {
-                alert("Można publikować maksymalnie 4 pracowników na stronie głównej. Pracownik przeniesiony do Team.");
-                team.appendChild(pracownikDiv);
-                // Usunięcie pracownika z listy dostępnych pracowników
-                const dostepnePracownicy = document.querySelectorAll('.dostepnyPracownik');
-                dostepnePracownicy.forEach(pracownik => {
-                    if (pracownik.textContent === pracownikImie) {
-                        pracownik.remove();
-                    }
-                });
-            }
-        } else if (area === 'team') {
-            team.appendChild(pracownikDiv);
-            // Usunięcie pracownika z listy dostępnych pracowników
-            const dostepnePracownicy = document.querySelectorAll('.dostepnyPracownik');
-            dostepnePracownicy.forEach(pracownik => {
-                if (pracownik.textContent === pracownikImie) {
-                    pracownik.remove();
-                }
-            });
-            // Usunięcie pracownika z sekcji Home
-            const homePracownicy = home.querySelectorAll('div');
-            homePracownicy.forEach(pracownik => {
-                if (pracownik.textContent === pracownikImie) {
-                    pracownik.remove();
-                }
-            });
-        } else if (area === 'dostepniPracownicy') {
-            // Dodanie pracownika z powrotem do listy dostępnych pracowników
-            document.getElementById('dostepniPracownicy').appendChild(pracownikDiv);
-            // Usunięcie pracownika z sekcji Home
-            const homePracownicy = home.querySelectorAll('div');
-            homePracownicy.forEach(pracownik => {
-                if (pracownik.textContent === pracownikImie) {
-                    pracownik.remove();
-                }
-            });
-            // Usunięcie pracownika z sekcji Team
-            const teamPracownicy = team.querySelectorAll('div');
-            teamPracownicy.forEach(pracownik => {
-                if (pracownik.textContent === pracownikImie) {
-                    pracownik.remove();
-                }
-            });
-        }
-    }
-</script>
-
-</body>
-</html> -->
 

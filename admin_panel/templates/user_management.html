@@ -154,7 +154,7 @@
                                 
                                 <div  class="column-expand" data-bs-toggle="collapse" href="#collapse_id_{{user_id}}" role="button" aria-expanded="false" aria-controls="collapse_id_{{user_id}}">
                                     <a data-bs-toggle="collapse" href="#collapse_id_{{user_id}}" role="button" aria-expanded="false" aria-controls="collapse_id_{{user_id}}">
-                                        {{users_data['email']}}
+                                        {{users_data['email'][:15]}} ...
                                     </a>
                                 </div>
                                 <div  class="column-usual" data-bs-toggle="collapse" href="#collapse_id_{{user_id}}" role="button" aria-expanded="false" aria-controls="collapse_id_{{user_id}}">
@@ -173,7 +173,7 @@
                                 </div>
                                 <div  class="column-usual" data-bs-toggle="collapse" href="#collapse_id_{{user_id}}" role="button" aria-expanded="false" aria-controls="collapse_id_{{user_id}}">
                                     <a data-bs-toggle="collapse" href="#collapse_id_{{user_id}}" role="button" aria-expanded="false" aria-controls="collapse_id_{{user_id}}">
-                                        {{users_data['stanowisko']}}
+                                        {{users_data['stanowisko'][:15]}} ...
                                     </a>
                                 </div>
                                 <div class="column-ender">
@@ -233,7 +233,31 @@
                                         </div>
                                         <div class="tylko-klej">
                                             <div class="profil-desc">
-                                                Dane:
+                                                Telefon:
+                                            </div>
+                                            <div class="profil-content">
+                                                {{users_data['phone']}}
+                                            </div>
+                                        </div>
+                                        <div class="tylko-klej">
+                                            <div class="profil-desc">
+                                                Facebook:
+                                            </div>
+                                            <div class="profil-content">
+                                                {{users_data['facebook'][:15]}} ...
+                                            </div>
+                                        </div>
+                                        <div class="tylko-klej">
+                                            <div class="profil-desc">
+                                                Linedin:
+                                            </div>
+                                            <div class="profil-content">
+                                                {{users_data['linkedin'][:15]}} ...
+                                            </div>
+                                        </div>
+                                        <div class="tylko-klej">
+                                            <div class="profil-desc">
+                                                Imię i Nazwisko:
                                             </div>
                                             <div class="profil-content">
                                                 {{users_data['name']}}
@@ -241,7 +265,7 @@
                                         </div>
                                         <div class="tylko-klej">
                                             <div class="profil-desc">
-                                                User:
+                                                Login:
                                             </div>
                                             <div class="profil-content">
                                                 {{users_data['username']}}
@@ -306,6 +330,9 @@
                                                         </div>
                                                         <input  type="text" value="{{users_data['name']}}" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="name_{{user_id}}" placeholder="Imię i Nazwisko" />
                                                         <input  type="email" value="{{users_data['email']}}" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="email_{{user_id}}" placeholder="Adres e-mail" />
+                                                        <input  type="text" value="{{users_data['phone']}}" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="phone_{{user_id}}" placeholder="Telefon" />
+                                                        <input  type="text" value="{{users_data['facebook']}}" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="facebook_{{user_id}}" placeholder="Facebook" />
+                                                        <input  type="text" value="{{users_data['linkedin']}}" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="linkedin_{{user_id}}" placeholder="Linkedin" />
                                                         <input  type="text" value="{{users_data['stanowisko']}}" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="role_{{user_id}}" placeholder="Stanowisko" />
                                                         <textarea  rows="4" cols="50" class="form-control bg-dark formatuj" style="font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="desc_{{user_id}}" placeholder="Opis">{{users_data['opis']}}</textarea>
                                                         <!-- <input  input type="text" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px;" id="inputPassword3" placeholder="Repeat Password" /> -->
@@ -354,7 +381,7 @@
                                     </div>
                                     <div class="form-check form-switch">
                                         <form action="">
-                                            {% if users_data['uprawnienia']['permissions'] == 0 %}
+                                            {% if userperm['permissions'] == 0 %}
                                                 {% if users_data['uprawnienia']['users'] == 0 %}
                                                     <input class="custom-checkbox form-check-input" type="checkbox" id="flexSwitchCheckDefault_1_{{user_id}}" disabled />
                                                     <label class="form-check-label" for="flexSwitchCheckDefault_1_{{user_id}}">Zarządzanie Użytkownikami</label>
@@ -375,7 +402,7 @@
                                     </div>
                                     <div class="form-check form-switch">
                                         <form action="">
-                                            {% if users_data['uprawnienia']['permissions'] == 0 %}
+                                            {% if userperm['permissions'] == 0 %}
                                                 {% if users_data['uprawnienia']['brands'] == 0 %}
                                                     <input class="custom-checkbox form-check-input" type="checkbox" id="flexSwitchCheckDefault_2_{{user_id}}" disabled/>
                                                     <label class="form-check-label" for="flexSwitchCheckDefault_2_{{user_id}}">Zarządzanie Brendami</label>
@@ -397,7 +424,7 @@
                                     </div>
                                     <div class="form-check form-switch">
                                         <form action="">
-                                            {% if users_data['uprawnienia']['permissions'] == 0 %}
+                                            {% if userperm['permissions'] == 0 %}
                                                 {% if users_data['uprawnienia']['blog'] == 0 %}
                                                     <input class="custom-checkbox form-check-input" type="checkbox" id="flexSwitchCheckDefault_3_{{user_id}}" disabled/>
                                                     <label class="form-check-label" for="flexSwitchCheckDefault_3_{{user_id}}">Zarządzanie Blogiem</label>
@@ -418,7 +445,7 @@
                                     </div>
                                     <div class="form-check form-switch">
                                         <form action="">
-                                            {% if users_data['uprawnienia']['permissions'] == 0 %}
+                                            {% if userperm['permissions'] == 0 %}
                                                 {% if users_data['uprawnienia']['subscriber'] == 0 %}
                                                     <input class="custom-checkbox form-check-input" type="checkbox" id="flexSwitchCheckDefault_4_{{user_id}}" disabled/>
                                                     <label class="form-check-label" for="flexSwitchCheckDefault_4_{{user_id}}">Zarządzanie Subskrybentami</label>
@@ -439,7 +466,7 @@
                                     </div>
                                     <div class="form-check form-switch">
                                         <form action="">
-                                            {% if users_data['uprawnienia']['permissions'] == 0 %}
+                                            {% if userperm['permissions'] == 0 %}
                                                 {% if users_data['uprawnienia']['comments'] == 0 %}
                                                     <input class="custom-checkbox form-check-input" type="checkbox" id="flexSwitchCheckDefault_5_{{user_id}}" disabled/>
                                                     <label class="form-check-label" for="flexSwitchCheckDefault_5_{{user_id}}">Zarządzanie Komentarzami</label>
@@ -460,7 +487,7 @@
                                     </div>
                                     <div class="form-check form-switch">
                                         <form action="">
-                                            {% if users_data['uprawnienia']['permissions'] == 0 %}
+                                            {% if userperm['permissions'] == 0 %}
                                                 {% if users_data['uprawnienia']['team'] == 0 %}
                                                     <input class="custom-checkbox form-check-input" type="checkbox" id="flexSwitchCheckDefault_6_{{user_id}}" disabled/>
                                                     <label class="form-check-label" for="flexSwitchCheckDefault_6_{{user_id}}">Zarządzanie Personelem</label>
@@ -481,7 +508,7 @@
                                     </div>
                                     <div class="form-check form-switch">
                                         <form action="">
-                                            {% if users_data['uprawnienia']['permissions'] == 0 %}
+                                            {% if userperm['permissions'] == 0 %}
                                                 {% if users_data['uprawnienia']['team'] == 0 %}
                                                     <input class="custom-checkbox form-check-input" type="checkbox" id="flexSwitchCheckDefault_7_{{user_id}}" disabled/>
                                                     <label class="form-check-label" for="flexSwitchCheckDefault_7_{{user_id}}">Zarządzanie Uprawnieniami</label>
@@ -500,15 +527,6 @@
                                             {% endif %}
                                         </form>
                                     </div>
-                                    
-                                    <!-- <div class="form-check form-switch">
-                                        <input class="custom-checkbox form-check-input" type="checkbox" id="flexSwitchCheckDefault_8" disabled>
-                                        <label class="form-check-label" for="flexSwitchCheckDefault_8">Zarządzanie systemem</label>
-                                    </div>
-                                    <div class="form-check form-switch">
-                                        <input class="custom-checkbox form-check-input" type="checkbox" id="flexSwitchCheckDefault_9" checked disabled>
-                                        <label class="form-check-label" for="flexSwitchCheckDefault_9">Opcje Dev</label>
-                                    </div> -->
                                 </div>
                                 <div class="colapse-column-usual formatuj-left">
                                     <div class="klej">
@@ -518,7 +536,7 @@
                                     </div>
                                     <div class="form-check form-switch">
                                         <form action="">
-                                            {% if users_data['uprawnienia']['brands'] == 0 %}
+                                            {% if userperm['brands'] == 0 %}
                                                 {% if users_data['brands']['domy'] == 0 %}
                                                     <input class="custom-checkbox form-check-input" type="checkbox" id="flexSwitchCheckDefault_10_{{user_id}}" disabled />
                                                     <label class="form-check-label" for="flexSwitchCheckDefault_10_{{user_id}}">Domy</label>
@@ -539,7 +557,7 @@
                                     </div>
                                     <div class="form-check form-switch">
                                         <form action="">
-                                            {% if users_data['uprawnienia']['brands'] == 0 %}
+                                            {% if userperm['brands'] == 0 %}
                                                 {% if users_data['brands']['budownictwo'] == 0 %}
                                                     <input class="custom-checkbox form-check-input" type="checkbox" id="flexSwitchCheckDefault_11_{{user_id}}" disabled />
                                                     <label class="form-check-label" for="flexSwitchCheckDefault_11_{{user_id}}">Budownictwo</label>
@@ -560,7 +578,7 @@
                                     </div>
                                     <div class="form-check form-switch">
                                         <form action="">
-                                            {% if users_data['uprawnienia']['brands'] == 0 %}
+                                            {% if userperm['brands'] == 0 %}
                                                 {% if users_data['brands']['elitehome'] == 0 %}
                                                     <input class="custom-checkbox form-check-input" type="checkbox" id="flexSwitchCheckDefault_12_{{user_id}}" disabled />
                                                     <label class="form-check-label" for="flexSwitchCheckDefault_12_{{user_id}}">EliteHome</label>
@@ -581,7 +599,7 @@
                                     </div>
                                     <div class="form-check form-switch">
                                         <form action="">
-                                            {% if users_data['uprawnienia']['brands'] == 0 %}
+                                            {% if userperm['brands'] == 0 %}
                                                 {% if users_data['brands']['inwestycje'] == 0 %}
                                                     <input class="custom-checkbox form-check-input" type="checkbox" id="flexSwitchCheckDefault_13_{{user_id}}" disabled />
                                                     <label class="form-check-label" for="flexSwitchCheckDefault_13_{{user_id}}">Inwestycje</label>
@@ -602,7 +620,7 @@
                                     </div>
                                     <div class="form-check form-switch">
                                         <form action="">
-                                            {% if users_data['uprawnienia']['brands'] == 0 %}
+                                            {% if userperm['brands'] == 0 %}
                                                 {% if users_data['brands']['instalacje'] == 0 %}
                                                     <input class="custom-checkbox form-check-input" type="checkbox" id="flexSwitchCheckDefault_14_{{user_id}}" disabled />
                                                     <label class="form-check-label" for="flexSwitchCheckDefault_14_{{user_id}}">Instalacje</label>
@@ -623,7 +641,7 @@
                                     </div>
                                     <div class="form-check form-switch">
                                         <form action="">
-                                            {% if users_data['uprawnienia']['brands'] == 0 %}
+                                            {% if userperm['brands'] == 0 %}
                                                 {% if users_data['brands']['development'] == 0 %}
                                                     <input class="custom-checkbox form-check-input" type="checkbox" id="flexSwitchCheckDefault_15_{{user_id}}" disabled />
                                                     <label class="form-check-label" for="flexSwitchCheckDefault_15_{{user_id}}">Development</label>

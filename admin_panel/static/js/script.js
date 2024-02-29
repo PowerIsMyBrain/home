@@ -137,18 +137,6 @@ function joinListFields(id, sep, elementName="dynamicField",) {
 }
 
 
-// function prepareAndSubmitForm(postId) {
-//     // Pobierz dane za pomocą funkcji joinListFields i ustaw wartości ukrytych pól formularza
-//     var tagsFieldData = joinListFields(postId, ', ', 'dynamicTagsField');
-//     var dynamicFieldData = joinListFields(postId, '#splx#', 'dynamicField');
-
-//     document.getElementById('tagsFieldData_'+postId).value = tagsFieldData;
-//     document.getElementById('dynamicFieldData_'+postId).value = dynamicFieldData;
-
-//     // Znajdź formularz i wyślij go
-//     var form = document.getElementById('editPost_'+postId);
-//     form.submit();
-// }
 
 function prepareAndSubmitForm(postId, oldFotos=true) {
     // Sprawdź, czy wymagane pola są wypełnione
@@ -218,4 +206,102 @@ function previewImage(input, previewId, targetWidth, targetHeight, errorMargin) 
     } else {
         preview.src = "";
     }
+}
+
+
+
+function przeciagnij(event) {
+    event.dataTransfer.setData("text/plain", event.target.textContent);
+    event.dataTransfer.setData("shape", event.target.getAttribute("data-shape"));
+    event.dataTransfer.setData("image-url", event.target.getAttribute("data-image-url"));
+    event.target.classList.add("clone"); // Oznacz element jako klon
+}
+
+function dopuszczalnePrzesuniecie(event) {
+    event.preventDefault();
+}
+
+function upusc(area, event) {
+    event.preventDefault();
+    const pracownikImie = event.dataTransfer.getData("text/plain");
+    const pracownikShape = event.dataTransfer.getData("shape");
+    const pracownikImageUrl = event.dataTransfer.getData("image-url");
+
+    const pracownikDiv = document.createElement("div");
+    pracownikDiv.textContent = pracownikImie;
+    pracownikDiv.draggable = true;
+    pracownikDiv.className = "dostepnyPracownik";
+    pracownikDiv.setAttribute("data-shape", pracownikShape);
+        
+    if (pracownikImageUrl) {
+        pracownikDiv.setAttribute("data-image-url", pracownikImageUrl);
+        pracownikDiv.style.backgroundImage = `url('${pracownikImageUrl}')`; 
+    }
+
+    pracownikDiv.addEventListener("dragstart", przeciagnij);
+
+    if (area === 'home') {
+        if (home.childElementCount < 4 && !czyPracownikIstnieje(home, pracownikImie) && !czyPracownikIstnieje(team, pracownikImie)) {
+            home.appendChild(pracownikDiv);
+            usunPracownikaZListy('dostepniPracownicy', pracownikImie);
+            usunPracownikaZListy('team', pracownikImie);
+        } else {
+            alert("Można publikować maksymalnie 4 pracowników na stronie głównej. Pracownik przeniesiony do Team.");
+        }
+    } else if (area === 'team' && !czyPracownikIstnieje(home, pracownikImie) && !czyPracownikIstnieje(team, pracownikImie)) {
+        team.appendChild(pracownikDiv);
+        usunPracownikaZListy('dostepniPracownicy', pracownikImie);
+        usunPracownikaZListy('home', pracownikImie);
+    } else if (area === 'dostepniPracownicy' && !czyPracownikIstnieje(dostepniPracownicy, pracownikImie)) {
+        document.getElementById('dostepniPracownicy').appendChild(pracownikDiv);
+        usunPracownikaZListy('home', pracownikImie);
+        usunPracownikaZListy('team', pracownikImie);
+    } 
+    else {
+        // Jeśli próbujesz przeciągnąć z "home" do "team" lub odwrotnie, zablokuj operację
+        alert("Nie można przeciągać między 'home' a 'team'.");
+    }
+}
+
+function czyPracownikIstnieje(sekcja, pracownikImie) {
+    const pracownicy = sekcja.querySelectorAll('div');
+    let istnieje = false;
+    pracownicy.forEach(pracownik => {
+        if (pracownik.textContent === pracownikImie) {
+            istnieje = true;
+        }
+    });
+
+    return istnieje;
+}
+
+function usunPracownikaZListy(sekcja, pracownikImie) {
+    const pracownicy = document.getElementById(sekcja).querySelectorAll('div');
+    pracownicy.forEach(pracownik => {
+        if (pracownik.textContent === pracownikImie) {
+            pracownik.remove();
+        }
+    });
+}
+
+function pobierzKolejnosc(sekcja) {
+    const elementy = sekcja.querySelectorAll('div');
+    const kolejnosc = Array.from(elementy).map(element => element.textContent);
+    console.log(`Kolejność w sekcji ${sekcja}:`, kolejnosc);
+    return kolejnosc;
+}
+
+function send_team() {
+    const  sequence = pobierzKolejnosc('home') +  pobierzKolejnosc('team');
+
+    sequence.send();
+
+}
+
+function pobierzIKonsolujKolejnosc(sekcjaId) {
+    const sekcja = document.getElementById(sekcjaId);
+    const elementy = sekcja.querySelectorAll('div');
+    const kolejnosc = Array.from(elementy).map(element => element.textContent);
+    
+    console.log(`Kolejność w sekcji ${sekcjaId}:`, kolejnosc);
 }

@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% block scripts%}
+<script>
+    // Obrazy do preładowania
+    var imagesToPreload = [
+    // {% for link in photos_dict.values() %}
+       "{{link}}",
+    // {% endfor %}
+    ];
+
+    // Funkcja do preładowania obrazów
+    function preloadImages(images, callback) {
+        var loaded = 0;
+        images.forEach(function (imageUrl) {
+            var img = new Image();
+            img.onload = function () {
+                loaded++;
+                if (loaded === images.length) {
+                    callback();
+                }
+            };
+            img.src = imageUrl;
+        });
+    }
+
+    // Preładowanie obrazów przed załadowaniem strony
+    preloadImages(imagesToPreload, function () {
+        // Po załadowaniu obrazów przypisz je do elementów
+        assignImagesToElements();
+    });
+
+    // Funkcja przypisująca obrazy do elementów
+    function assignImagesToElements() {
+        var pracownicy = document.querySelectorAll('.dostepnyPracownik');
+        pracownicy.forEach(function (pracownik) {
+            var imageUrl = pracownik.getAttribute("data-image-url");
+            pracownik.style.backgroundImage = `url('${imageUrl}')`;
+        });
+    }
+    // W kodzie JavaScript na stronie
+    function send_team(team_section) {
+        const homeSequence = pobierzKolejnosc(document.getElementById('home'));
+        const teamSequence = pobierzKolejnosc(document.getElementById('team'));
+
+        const combinedSequence = [...homeSequence, ...teamSequence];
+
+        const dataToSend = {
+            sequence: combinedSequence
+        };
+
+        fetch(team_section, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataToSend),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Odpowiedź z serwera:', data);
+        })
+        .catch(error => {
+            console.error('Błąd podczas wysyłania danych:', error);
+        });
+    }
+</script>
+{% endblock %}
+{% block title %}DMD Panel Administratora - Zarządzanie Kadrą{% endblock %}
+
+{% block addButton %}
+<!-- dropdown -->
+<div class="dropdown">
+    <button class="nav-link dropdown-toggle link-light dark-mode" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+        EliteHome
+    </button>
+    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+        <li><a class="dropdown-item" href="/team-domy">Domy</a></li>
+        <li><a class="dropdown-item" href="/team-budownictwo">Budownictwo</a></li>
+        <li><a class="team_button_elitehome dropdown-item active" href="/team-elitehome">EliteHome</a></li>
+        <li><a class="dropdown-item" href="/team-instalacje">Instalacje</a></li>
+        <li><a class="dropdown-item" href="/team-development">Development</a></li>
+        <li><a class="dropdown-item" href="/team-inwestycje">Inwestycje</a></li>
+
+
+    </ul>
+</div>
+<!-- dropdown END -->
+{% endblock %}
+{% block navbarTitle %}<a class="nav-link active dark-mode " aria-current="page" href="#">Zarządzanie Kadrą</a>{% endblock %}
+
+{% block tableHeader %}{% endblock %}
+{% block tableContent%}
+
+    <div class="table-creator">
+        <div class="row">
+            <div class="col">
+                <div class="team-heads">
+                    <Span>Home</Span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="team-heads">
+                    <Span>Team</Span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-creator">
+        <div class="row">
+            <div class="col">
+                <div class="team-drops">
+                    <div class="team-drops-out">
+                        <div id="home" class="team-drops-in" ondrop="upusc('home', event)" ondragover="dopuszczalnePrzesuniecie(event)">
+                            <!-- Upuść tutaj -->
+                            {% for member in members['home'] %}
+                            {% set member_photo = photos_dict[member] %}
+                                <div 
+                                class="dostepnyPracownik" 
+                                style="width: 100px !important; height: 100px !important;" 
+                                draggable="true" ondragstart="przeciagnij(event)" 
+                                data-shape="circle" 
+                                data-image-url="{{member_photo}}">
+                                    {{member}}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="team-drops">
+                    <div class="team-drops-out">
+                        <div id="team" class="team-drops-in" ondrop="upusc('team', event)" ondragover="dopuszczalnePrzesuniecie(event)">
+                            <!-- Upuść tutaj -->
+                            {% for member in members['team'] %}
+                            {% set member_photo = photos_dict[member] %}
+                                <div 
+                                class="dostepnyPracownik" 
+                                style="width: 100px !important; height: 100px !important;" 
+                                draggable="true" ondragstart="przeciagnij(event)" 
+                                data-shape="circle" 
+                                data-image-url="{{member_photo}}">
+                                    {{member}}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-creator">
+        <div class="row">
+            <div class="col">
+                <div class="team-heads">
+                    <Span>Dostępni Pracownicy</Span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-creator rogi">
+        <div class="row">
+            <div class="col">
+                <div class="team-drops">
+                    <div class="team-drops-out">
+                        <div id="dostepniPracownicy" class="team-drops-in" ondrop="upusc('dostepniPracownicy', event)" ondragover="dopuszczalnePrzesuniecie(event)">
+                            {% for member in members['available'] %}
+                            {% set member_photo = photos_dict[member] %}
+                                <div 
+                                class="dostepnyPracownik" 
+                                style="width: 100px !important; height: 100px !important;" 
+                                draggable="true" ondragstart="przeciagnij(event)" 
+                                data-shape="circle" 
+                                data-image-url="{{member_photo}}">
+                                    {{member}}
+                                </div>
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="formatuj-left formatuj-maly-font" style="margin-left: 30px;">
+        <p>
+            Moduł "Team" umożliwia łatwe dostosowywanie kolejności wyświetlania pracowników na stronie firmowej. 
+            Aby zmienić pozycję danego pracownika, wystarczy przeciągnąć i upuścić jego avatar z sekcji 
+            "Dostępni Pracownicy" do wybranej sekcji "Home" lub "Team". Jeśli chcesz zmienić kolejność pracowników 
+            w sekcji "Home" lub "Team", musisz przeciągnąć i upuścić pracowników spowrotem do sekcji 
+            "Dostępni Pracownicy" a następnie umieścić w wybranej kolejności. Po dokonaniu zmian, zapisz 
+            nowe ustawienia kolejności, zapewniając szybkie i intuicyjne zarządzanie prezentacją zespołu na stronie.
+        </p>        
+        <form id="teamForm" onsubmit="send_team('/team-elitehome'); return false;">
+            <button type="submit" class="btn btn-secondary">Zapisz zmiany</button>
+        </form>
+    </div>
+    
+
+{% endblock %}
+
+{% block footer %}
+ To jest stopka panelu administracyjnego. All right reserved &copy; 2024 by DMD Panel Administratora.<br/>
+{% endblock %}

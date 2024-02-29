@@ -60,7 +60,31 @@
                 </div>
                 <div class="tylko-klej">
                     <div class="profil-desc">
-                        Dane:
+                        Telefon:
+                    </div>
+                    <div class="profil-content">
+                        {{users_data['phone']}}
+                    </div>
+                </div>
+                <div class="tylko-klej">
+                    <div class="profil-desc">
+                        Facebook:
+                    </div>
+                    <div class="profil-content">
+                        {{users_data['facebook'][:15]}} ...
+                    </div>
+                </div>
+                <div class="tylko-klej">
+                    <div class="profil-desc">
+                        Linkedin:
+                    </div>
+                    <div class="profil-content">
+                        {{users_data['linkedin'][:15]}} ...
+                    </div>
+                </div>
+                <div class="tylko-klej">
+                    <div class="profil-desc">
+                        Imię i Nazwisko:
                     </div>
                     <div class="profil-content">
                         {{users_data['name']}}
@@ -68,7 +92,7 @@
                 </div>
                 <div class="tylko-klej">
                     <div class="profil-desc">
-                        User:
+                        Login:
                     </div>
                     <div class="profil-content">
                         {{users_data['username']}}
@@ -134,6 +158,9 @@
                                 </div>
                                 <input  type="text" value="{{users_data['name']}}" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="name_{{username}}" placeholder="Imię i Nazwisko" />
                                 <input  type="email" value="{{users_data['email']}}" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="email_{{username}}" placeholder="Adres e-mail" />
+                                <input  type="text" value="{{users_data['phone']}}" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="phone_{{username}}" placeholder="Telefon" />
+                                <input  type="text" value="{{users_data['facebook']}}" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="facebook_{{username}}" placeholder="Facebook" />
+                                <input  type="text" value="{{users_data['linkedin']}}" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="linkedin_{{username}}" placeholder="Linkedin" />
                                 <input  type="text" value="{{users_data['stanowisko']}}" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px; color: #9da2a8; border:#6a6a6a solid 1px;" id="role_{{username}}" placeholder="Stanowisko" />
                                 <!-- <input  input type="text" class="form-control bg-dark formatuj" style="max-height: 30px; font-size: 12px;" id="inputPassword3" placeholder="Repeat Password" /> -->
                                 <div class="tylko-klej">

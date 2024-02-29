@@ -27,6 +27,7 @@ body {
     background-color: #1e2124; /* Nowy kolor tła */
     color: #c7c7c7; /* Nowy kolor tekstu */
     cursor: default;
+    padding-bottom: 100px;
   }
   button:hover {
       cursor: default;
@@ -138,6 +139,52 @@ body {
       font-size: small;
       
   }
+  .team_button_domy {
+    background-color: #007f00 !important;
+  }
+  .team_button_budownictwo {
+    background-color: #7f0000 !important;
+  }
+  .team_button_elitehome {
+    background-color: #656565 !important;
+  }
+  .team_button_instalacje {
+    background-color: #a79900 !important;
+  }
+  .team_button_investment {
+    background-color: #050505 !important;
+  }
+  .team_button_development {
+    background-color: #003fb4 !important;
+  }
+.team-heads {
+    border-radius: 7px;
+    font-size: 14pt;
+    text-align: left;
+    font-weight: bold;
+    color:#969696;
+    padding: 5px;
+    margin: 5px;
+}
+.team-drops {
+    border-radius: 10px;
+    background-color: #121212;
+    border: #393939 dotted 2px;
+    text-align: left;
+    padding: 15px;
+    margin: 15px;
+}
+.team-drops-out {
+    width: 100% ;
+    justify-content: center;
+}
+.team-drops-in {
+    display: flex; 
+    width: 100% !important; 
+    min-width: 300px !important; 
+    min-height: 120px !important;
+}
+
   .avatar {
       max-height: 150px;
       min-width:  150px;
@@ -428,7 +475,7 @@ cursor: default;
 
 .profil-desc {
 font-size: 14px;
-max-width: 100px;
+max-width: 120px;
 text-align: justify;
 color:#969696;
 }
@@ -442,4 +489,79 @@ color:#969696;
     font-size: 11px;
     text-align: justify;
     color:#969696;
+}
+
+#home, #team {
+    margin-bottom: 20px;
+}
+
+#home div, #team div, .dostepnyPracownik {
+    width: 100px !important;
+    height: 100px !important;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    cursor: move;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: #000000;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end; /* Zmieniono z 'center' na 'flex-end' */
+    position: relative;
+    padding-top: 50px;
+    font-weight: bold; /* Pogrubienie tekstu */
+    text-decoration: underline; /* Opcjonalne: dodanie podkreślenia (przykładowa dekoracja) */
+    font-size: medium;
+}
+
+#home div::after,
+#team div::after,
+.dostepnyPracownik::after {
+    content: "";
+    height: 3px;
+    width: 100%;
+}
+
+.dostepnyPracownik {
+    width: 100px !important;
+    height: 100px !important;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: move;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: #000000;
+    background-size: cover; /* Dodaj to */
+    background-position: center;
+    background-repeat: no-repeat;
+    color:#ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:  flex-end;
+    position: relative;
+    padding-top: 50px;
+    font-weight: bold; /* Pogrubienie tekstu */
+    text-decoration: underline; /* Opcjonalne: dodanie podkreślenia (przykładowa dekoracja) */
+}
+
+.ramka_tekstu {
+    background-color: black;
+    color: #ccc;
+    border: 1px solid #ccc;
+    border-radius: 10%;
+    margin-top: 150px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0px;
+    padding-bottom: 3px;
 }
